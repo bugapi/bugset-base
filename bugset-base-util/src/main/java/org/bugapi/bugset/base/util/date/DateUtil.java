@@ -1,4 +1,4 @@
-package org.bugapi.bugset.base.util;
+package org.bugapi.bugset.base.util.date;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
