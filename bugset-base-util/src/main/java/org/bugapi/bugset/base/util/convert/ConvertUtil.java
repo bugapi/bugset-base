@@ -16,7 +16,7 @@ public class ConvertUtil {
 	 * 将Object转成Integer对象
 	 *
 	 * @param obj Object对象
-	 * @return Integer Integer对象
+	 * @return int Integer对象
 	 */
 	public static int convertObjectToInteger(Object obj) {
 		if (obj instanceof Integer) {
@@ -30,11 +30,25 @@ public class ConvertUtil {
 	 * 将Object转成Long对象
 	 *
 	 * @param obj Object对象
-	 * @return Long Long对象
+	 * @return long Long对象
 	 */
 	public static long convertObjectToLong(Object obj) {
 		if (obj instanceof Long) {
 			return (Long) obj;
+		} else {
+			return 0L;
+		}
+	}
+
+	/**
+	 * 将Object转成Float对象
+	 *
+	 * @param obj Object对象
+	 * @return float Float对象
+	 */
+	public static float convertObjectToFloat(Object obj) {
+		if (obj instanceof Float) {
+			return (Float) obj;
 		} else {
 			return 0L;
 		}
@@ -55,8 +69,8 @@ public class ConvertUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(convertObjectToInteger(null));
-		System.out.println(convertObjectToInteger(new Integer(1)));
+		System.out.println(convertObjectToFloat(null));
+		System.out.println(convertObjectToFloat(new Integer(1)));
 	}
 
 	/* ----------------------------------------  数组与字符串之间的转换  -------------------------------------- */
