@@ -16,7 +16,7 @@ public class ObjectUtil {
 
 	/**
 	 * 判断两个对象是否相同
-	 * @Title: equal
+	 *
 	 * @param obj1 对象1
 	 * @param obj2 对象2
 	 * @return boolean 结果【true：相同、false：不相同】
@@ -27,7 +27,7 @@ public class ObjectUtil {
 
 	/**
 	 * 比较两个对象是否不相等
-	 * @Title: notEqual
+	 *
 	 * @param obj1 对象1
 	 * @param obj2 对象2
 	 * @return boolean 结果【false：相同、true：不相同】
@@ -38,7 +38,7 @@ public class ObjectUtil {
 
 	/**
 	 * 安全的对象比较 null对象排在末尾
-	 * @Title:
+	 *
 	 * @param <T> 被比较对象类型
 	 * @param obj1 对象1，可以为{@code null}
 	 * @param obj2 对象2，可以为{@code null}
@@ -51,7 +51,7 @@ public class ObjectUtil {
 
 	/**
 	 * 安全的对象比较 null对象排在末尾
-	 * @Title:
+	 *
 	 * @param <T> 被比较对象类型
 	 * @param obj1 对象1，可以为{@code null}
 	 * @param obj2 对象2，可以为{@code null}
@@ -71,36 +71,8 @@ public class ObjectUtil {
 	}
 
 	/**
-	 * 将Object转成Long对象
-	 * @Title: convertObjectToLong
-	 * @param obj Object对象
-	 * @return Long Long对象
-	 */
-	public static Long convertObjectToLong(Object obj) {
-		if (obj instanceof Double) {
-			return ((Double) obj).longValue();
-		} else {
-			return 0L;
-		}
-	}
-
-	/**
-	 * 将Object转成Double对象
-	 * @Title: convertObjectToDouble
-	 * @param obj Object对象
-	 * @return Double Double对象
-	 */
-	public static Double convertObjectToDouble(Object obj) {
-		if (obj instanceof Double) {
-			return ((Double) obj);
-		} else {
-			return 0D;
-		}
-	}
-
-	/**
 	 * 判断对象是否为空
-	 * @Title: isEmpty
+	 *
 	 * @param obj Object对象
 	 * @return boolean 【true：空】
 	 */
