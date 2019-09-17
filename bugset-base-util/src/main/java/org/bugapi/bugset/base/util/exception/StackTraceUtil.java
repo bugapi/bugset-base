@@ -1,10 +1,10 @@
 package org.bugapi.bugset.base.util.exception;
 
 /**
- * @ClassName: StackTraceUtil
- * @Description: 获取 当前执行位置/异常报错 处代码的文件名/类名/方法名/行号
- * @author: zhangxw
- * @date: 2018/3/28
+ * 获取 当前执行位置/异常报错 处代码的文件名/类名/方法名/行号
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public class StackTraceUtil {
 

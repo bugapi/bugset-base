@@ -5,9 +5,16 @@ import java.text.DecimalFormat;
 
 /**
  * @ClassName: NumbericUtil
- * @Description: 数字工具类【包含加、减、乘、除、以及保留几位小数等】
+ * @Description:
  * @author: zhangxw
  * @date: 2017/7/17
+ */
+
+/**
+ * 数字工具类【包含加、减、乘、除、以及保留几位小数等】
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public class NumbericUtil {
 

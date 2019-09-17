@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * @ClassName: ObjectUtil
- * @Description: 通用方法
- * @author: zhangxw
- * @date: 2019/4/28
+ * 通用方法
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public class ObjectUtil {
 

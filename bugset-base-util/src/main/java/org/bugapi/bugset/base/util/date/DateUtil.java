@@ -1,52 +1,67 @@
 package org.bugapi.bugset.base.util.date;
 
+import org.bugapi.bugset.base.constant.DateFormatEnum;
+import org.bugapi.bugset.base.constant.DateTypeEnum;
+import org.bugapi.bugset.base.constant.SymbolType;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @ClassName: DateUtil
- * @Description: 日期工具类
- * @author: gust
- * @date: 2019/8/16
+ * 日期工具类
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public class DateUtil {
 
-	private static final String TIME_COLON = ":";
+	/**
+	 * 返回当前日期格式化后的字符串
+	 *
+	 * @return 格式化后的日期
+	 */
+	public static String formatCurrentDateToString() {
+		return formatDateToString(null, DateFormatEnum.YYYYMMDDHH24MMSS_BAR);
+	}
 
 	/**
 	 * 返回当前日期格式化后的字符串
-	 * @param datePattern 日期格式
+	 *
+	 * @param dateFormatEnum 日期格式
 	 * @return 格式化后的日期
 	 */
-	public static String formatCurrentDateToString(DatePattern datePattern) {
-		return formatDateToString(null, datePattern);
+	public static String formatCurrentDateToString(DateFormatEnum dateFormatEnum) {
+		return formatDateToString(null, dateFormatEnum);
 	}
 
 	/**
 	 * 返回日期格式化后的字符串
-	 * @param date 日期
-	 * @param datePattern 日期格式
+	 *
+	 * @param date           日期
+	 * @param dateFormatEnum 日期格式
 	 * @return 格式化后的日期
 	 */
-	public static String formatDateToString(Date date, DatePattern datePattern) {
+	public static String formatDateToString(Date date, DateFormatEnum dateFormatEnum) {
 		LocalDateTime localDateTime = dateToLocalDateTime(date);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern.getPattern());
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormatEnum.getFormat());
 		return localDateTime.format(dtf);
 	}
 
 	/**
 	 * 返回日期字符串解析后的日期（日期字符串不合法返回null）
-	 * @param dateStr 日期字符串
-	 * @param datePattern 日期格式
-	 * @return 日期字符串解析后的日期 {@link DatePattern}
+	 *
+	 * @param dateStr        日期字符串
+	 * @param dateFormatEnum 日期格式
+	 * @return 日期字符串解析后的日期 {@link DateFormatEnum}
 	 */
-	public static Date formatStringToDate(String dateStr, DatePattern datePattern) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern.getPattern());
-		if (dateStr.contains(TIME_COLON)) {
+	public static Date formatStringToDate(String dateStr, DateFormatEnum dateFormatEnum) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormatEnum.getFormat());
+		if (dateStr.contains(SymbolType.COLON)) {
 			LocalDateTime dateTime;
 			try {
 				dateTime = LocalDateTime.parse(dateStr, dtf);
@@ -67,6 +82,7 @@ public class DateUtil {
 
 	/**
 	 * 获取当前日期的开始时间（00:00:00）
+	 *
 	 * @return 当前日期的开始时间（00:00:00）
 	 */
 	public static Date getStartDateTimeOfCurrentDay() {
@@ -75,6 +91,7 @@ public class DateUtil {
 
 	/**
 	 * 获取指定日期的开始时间（00:00:00）
+	 *
 	 * @param date 日期
 	 * @return 指定日期的开始时间（00:00:00）
 	 */
@@ -84,6 +101,7 @@ public class DateUtil {
 
 	/**
 	 * 获取指定日期的开始时间（00:00:00）
+	 *
 	 * @param date 日期
 	 * @return 指定日期的开始时间（00:00:00）
 	 */
@@ -93,15 +111,16 @@ public class DateUtil {
 
 	/**
 	 * 获取当前日期的结束时间（23:59:59）
-	 * @param date 日期
+	 *
 	 * @return 当前日期的结束时间（23:59:59）
 	 */
-	public static Date getLastDateTimeOfCurrentDay(Date date) {
+	public static Date getLastDateTimeOfCurrentDay() {
 		return getLastDateTimeOfDay(dateToLocalDate(null));
 	}
 
 	/**
 	 * 获取指定日期的结束时间（23:59:59）
+	 *
 	 * @param date 日期
 	 * @return 指定日期的结束时间（23:59:59）
 	 */
@@ -111,6 +130,7 @@ public class DateUtil {
 
 	/**
 	 * 获取指定日期的结束时间（23:59:59）
+	 *
 	 * @param date 日期
 	 * @return 指定日期的结束时间（23:59:59）
 	 */
@@ -119,17 +139,17 @@ public class DateUtil {
 	}
 
 	/**
-	 * @Title: plusTime
-	 * @Description: 对一个时间对象加时长（同理也可对年/月/日/时/分/秒）
-	 * @param date 待处理时间
-	 * @param duration 增加时长
-	 * @param dateUnit 时间单位类型 {@link DateUnit}
-	 * @return Date
+	 * 对一个时间对象加时长（同理也可对年/月/日/时/分/秒）
+	 *
+	 * @param date         待处理时间
+	 * @param duration     增加时长【为负数表示减去多少个指定单位的时间】
+	 * @param dateTypeEnum 日期时间类型 {@link DateTypeEnum}
+	 * @return Date 修改后的时间
 	 */
-	public static Date modifyDate(Date date, long duration, DateUnit dateUnit){
+	public static Date modifyDate(Date date, long duration, DateTypeEnum dateTypeEnum) {
 		LocalDateTime d1 = dateToLocalDateTime(date);
 		LocalDateTime d2 = null;
-		switch (dateUnit) {
+		switch (dateTypeEnum) {
 			case YEAR:
 				d2 = d1.plusYears(duration);
 				break;
@@ -158,12 +178,67 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取具体的时间
+	 *
+	 * @param date         日期
+	 * @param dateTypeEnum 日期时间类型 {@link DateTypeEnum}
+	 * @return 具体的时间
+	 */
+	public static long getSpecificTime(Date date, DateTypeEnum dateTypeEnum) {
+		return getSpecificTime(dateToLocalDateTime(date), dateTypeEnum);
+	}
+
+	/**
+	 * 获取具体的时间
+	 *
+	 * @param date         日期
+	 * @param dateTypeEnum 日期时间类型 {@link DateTypeEnum}
+	 * @return 具体的时间
+	 */
+	public static long getSpecificTime(LocalDateTime date, DateTypeEnum dateTypeEnum) {
+		long specific = 0L;
+		if (null == date) {
+			return specific;
+		}
+		switch (dateTypeEnum) {
+			case YEAR:
+				specific = date.getYear();
+				break;
+			case MONTH:
+				specific = date.getMonthValue();
+				break;
+			case DAY_OF_MONTH:
+				specific = date.getDayOfMonth();
+				break;
+			case DAY_OF_YEAR:
+				specific = date.getDayOfYear();
+				break;
+			case HOUR:
+				specific = date.getHour();
+				break;
+			case MINUTE:
+				specific = date.getMinute();
+				break;
+			case SECOND:
+				specific = date.getSecond();
+				break;
+			case MILLISECOND:
+				specific = date.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+				break;
+			default:
+				break;
+		}
+		return specific;
+	}
+
+	/**
 	 * 比较日期（精确到天）
-	 * @param firstDate 第一个日期
+	 *
+	 * @param firstDate  第一个日期
 	 * @param secondDate 第二个日期
 	 * @return boolean 1    firstDate < secondDate
-	 *                 0    firstDate == secondDate
-	 *                 -1   firstDate > secondDate
+	 * 0    firstDate == secondDate
+	 * -1   firstDate > secondDate
 	 */
 	public static int compareDate(Date firstDate, Date secondDate) {
 		LocalDate ld1 = dateToLocalDate(firstDate);
@@ -176,11 +251,12 @@ public class DateUtil {
 
 	/**
 	 * 比较日期（精确到秒）
-	 * @param firstDate 第一个日期
+	 *
+	 * @param firstDate  第一个日期
 	 * @param secondDate 第二个日期
 	 * @return boolean 1    firstDate < secondDate
-	 *                 0    firstDate == secondDate
-	 *                 -1   firstDate > secondDate
+	 * 0    firstDate == secondDate
+	 * -1   firstDate > secondDate
 	 */
 	public static int compareDateTime(Date firstDate, Date secondDate) {
 		LocalDateTime ld1 = dateToLocalDateTime(firstDate);
@@ -192,69 +268,129 @@ public class DateUtil {
 	}
 
 	/**
-	 * @Title: getFirstDayOfCurrentMonth
-	 * @Description: 获取当前月的第一天日期
+	 * 指定日期是否在当前日期之前
+	 *
+	 * @param year  年份
+	 * @param month 月份
+	 * @param day   天
+	 * @return boolean
+	 */
+	public static boolean isBeforeCurrentDate(int year, int month, int day) {
+		Calendar cal = Calendar.getInstance();
+		if (year < cal.get(Calendar.YEAR)) {
+			return true;
+		}
+		if (month < cal.get(Calendar.MONTH) + 1) {
+			return true;
+		}
+		return day < cal.get(Calendar.DAY_OF_MONTH);
+	}
+
+	/**
+	 * 获取当前时间所在月的第一天日期
+	 *
 	 * @return Date 所在月的第一天日期, 时分秒为 00:00:00
 	 */
-	public static Date getFirstDayOfCurrentMonth(){
+	public static Date getFirstDayOfCurrentMonth() {
 		return getFirstDayOfMonth(LocalDate.now());
 	}
 
 	/**
 	 * 获取指定日期所在月的第一天日期
+	 *
 	 * @param date 目标日期（如果为空，则默认使用当前日期）
 	 * @return Date 所在月的第一天日期, 时分秒为 00:00:00
 	 */
-	public static Date getFirstDayOfMonth(Date date){
+	public static Date getFirstDayOfMonth(Date date) {
 		return getFirstDayOfMonth(dateToLocalDate(date));
 	}
 
 	/**
 	 * 获取指定日期所在月的第一天日期
+	 *
 	 * @param date 目标日期（如果为空，则默认使用当前日期）
 	 * @return Date 所在月的第一天日期, 时分秒均为0
 	 */
-	public static Date getFirstDayOfMonth(LocalDate date){
+	public static Date getFirstDayOfMonth(LocalDate date) {
 		return localDateToDate((date == null ? LocalDate.now() : date).with(TemporalAdjusters.firstDayOfMonth()));
 	}
 
 	/**
 	 * 获取当前月的最后一天日期
+	 *
 	 * @return Date 所在月的最后一天日期, 时分秒为 00:00:00
 	 */
-	public static Date getLastDayOfCurrentMonth(){
+	public static Date getLastDayOfCurrentMonth() {
 		return getLastDayOfMonth(dateToLocalDate(null));
 	}
 
 	/**
 	 * 获取指定日期所在月的最后一天日期
+	 *
 	 * @param date 目标日期（如果为空，则默认使用当前日期）
 	 * @return Date 所在月的最后一天日期, 时分秒为 00:00:00
 	 */
-	public static Date getLastDayOfMonth(Date date){
+	public static Date getLastDayOfMonth(Date date) {
 		return getLastDayOfMonth(dateToLocalDate(date));
 	}
 
 	/**
 	 * 获取指定日期所在月的最后一天日期
+	 *
 	 * @param date 目标日期（如果为空，则默认使用当前日期）
 	 * @return Date 所在月的最后一天日期, 时分秒为 00:00:00
 	 */
-	public static Date getLastDayOfMonth(LocalDate date){
+	public static Date getLastDayOfMonth(LocalDate date) {
 		return localDateToDate((date == null ? LocalDate.now() : date).with(TemporalAdjusters.lastDayOfMonth()));
 	}
 
 	/**
+	 * 获取与指定日期间隔指定年份的日期
+	 *
+	 * @param x 日期间隔（支持负数）
+	 * @return Date 指定日期间隔指定年份的日期, 时分秒均为0
+	 */
+	public static Date getXYearBetweenCurrentDate(int x) {
+		return getXYearBetweenDate(LocalDate.now(), x);
+	}
+
+	/**
+	 * 获取与指定日期间隔指定年份的日期
+	 *
+	 * @param date 目标日期（如果为空，则默认使用当前日期）
+	 * @param x    日期间隔（支持负数）
+	 * @return Date 指定日期间隔指定年份的日期, 时分秒均为0
+	 */
+	public static Date getXYearBetweenDate(Date date, int x) {
+		return getXYearBetweenDate(dateToLocalDate(date), x);
+	}
+
+	/**
+	 * 获取与指定日期间隔指定年份的日期
+	 *
+	 * @param date 目标日期（如果为空，则默认使用当前日期）
+	 * @param x    日期间隔（支持负数）
+	 * @return Date 指定日期间隔指定年份的日期, 时分秒均为0
+	 */
+	public static Date getXYearBetweenDate(LocalDate date, int x) {
+		if (null == date) {
+			date = LocalDate.now();
+		}
+		return localDateToDate(date.plus(x, ChronoUnit.YEARS));
+	}
+
+	/**
 	 * 获取两个日期指定类型的时间间隔，只支持年月日
-	 * @param firstDate
-	 * @param secondDate
-	 * @param dateUnit 时间单位类型 {@link DateUnit}
+	 *
+	 * @param firstDate    第一个日期
+	 * @param secondDate   第二个日期
+	 * @param dateTypeEnum 日期时间类型 {@link DateTypeEnum}
 	 * @return 两个日期指定类型的时间间隔
 	 * @throw new UnsupportedOperationException()
 	 */
-	public static int getDateBetween(Date firstDate, Date secondDate, DateUnit dateUnit) {
+	public static int getDateBetween(Date firstDate, Date secondDate, DateTypeEnum dateTypeEnum) {
 		Period p = Period.between(dateToLocalDate(firstDate), dateToLocalDate(secondDate));
-		switch (dateUnit) {
+		switch (dateTypeEnum) {
 			case YEAR:
 				return p.getYears();
 			case MONTH:
@@ -268,6 +404,7 @@ public class DateUtil {
 
 	/**
 	 * 获取当月的总天数
+	 *
 	 * @return 当月的总天数
 	 */
 	public static int getDurationOfCurrentMonth() {
@@ -276,13 +413,19 @@ public class DateUtil {
 
 	/**
 	 * 获取指定日期所在月的总天数
+	 *
 	 * @return 当月的总天数
 	 */
 	public static int getDurationOfMonth(Date date) {
 		return dateToLocalDate(date).lengthOfMonth();
 	}
 
-
+	/**
+	 * Date 转成 LocalDate
+	 *
+	 * @param date 日期
+	 * @return LocalDate 当地日期
+	 */
 	private static LocalDate dateToLocalDate(Date date) {
 		if (date == null) {
 			return LocalDate.now();
@@ -290,10 +433,22 @@ public class DateUtil {
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
+	/**
+	 * LocalDate 转成 Date
+	 *
+	 * @param localDate 当地日期
+	 * @return Date 日期
+	 */
 	private static Date localDateToDate(LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
+	/**
+	 * Date 转成 LocalDateTime
+	 *
+	 * @param date 日期
+	 * @return LocalDateTime 当地日期时间
+	 */
 	private static LocalDateTime dateToLocalDateTime(Date date) {
 		if (date == null) {
 			return LocalDateTime.now();
@@ -301,37 +456,14 @@ public class DateUtil {
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
+	/**
+	 * LocalDateTime 转成 Date
+	 *
+	 * @param localDateTime 当地日期时间
+	 * @return Date 日期
+	 */
 	private static Date localDateTimeToDate(LocalDateTime localDateTime) {
 		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant().truncatedTo(
 				ChronoUnit.SECONDS));
-	}
-
-	public enum DateUnit {
-		YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND
-	}
-
-	public enum DatePattern {
-		YYYY("yyyy"),
-		MM("MM"),
-		DD("dd"),
-		YYYYMM("yyyyMM"),
-		YYYYMM_BAR("yyyy-MM"),
-		YYYYMM_SLASH("yyyy/MM"),
-		YYYYMMDD("yyyyMMdd"),
-		YYYYMMDD_BAR("yyyy-MM-dd"),
-		YYYYMMDD_SLASH("yyyy/MM/dd"),
-		YYYYMMDD_CHN("yyyy年MM月dd日"),
-		YYYYMMDDHH12MMSS_BAR("yyyy-MM-dd hh:mm:ss"),
-		YYYYMMDDHH24MMSS_BAR("yyyy-MM-dd HH:mm:ss");
-
-		private String pattern;
-
-		DatePattern(String pattern) {
-			this.pattern = pattern;
-		}
-
-		public String getPattern() {
-			return pattern;
-		}
 	}
 }
