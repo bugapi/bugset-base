@@ -49,6 +49,16 @@ public class SymbolType {
 	public static final String DOLLAR = "$";
 
 	/**
+	 * 空格符
+	 */
+	public static final String NBSP = " ";
+
+	/**
+	 * 竖线
+	 */
+	public static final String VERTICAL_VIRGULE = "|";
+
+	/**
 	 . period 句号
 	 , comma 逗号
 	 ; semicolon 分号

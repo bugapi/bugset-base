@@ -1,6 +1,11 @@
 package org.bugapi.bugset.base.util.string;
 
 import org.bugapi.bugset.base.constant.SymbolType;
+import org.bugapi.bugset.base.util.convert.ConvertUtil;
+
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 字符串工具类
@@ -9,6 +14,29 @@ import org.bugapi.bugset.base.constant.SymbolType;
  * @since 0.0.1
  */
 public class StringUtil {
+
+	/**
+	 * 获取默认的字符串分隔符
+	 *
+	 * @param separator 字符串分隔符
+	 * @return String 分隔符
+	 */
+	public static String getDefaultStrSeparator(String separator){
+		if (isEmpty(separator)) {
+			separator = SymbolType.COMMA;
+		}
+		return separator;
+	}
+
+	/**
+	 * 获取默认的文件路径分隔符
+	 *
+	 * @return String 文件分隔符
+	 */
+	public static String getDefaultPathSeparator(){
+		return File.separator;
+	}
+
 	/**
 	 * 判断字符串为空
 	 *
@@ -26,7 +54,7 @@ public class StringUtil {
 	 * @return boolean 【false：字符串为null、字符串由空白字符组成】
 	 */
 	public static boolean isNotEmpty(CharSequence str) {
-		return null != str && !"".equals(trim(str, 0));
+		return null != str && !SymbolType.EMPTY.equals(trim(str, 0));
 	}
 
 	/**
@@ -70,7 +98,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * 将字符串为null的字符串转成空字符串""
+	 * 将字符串为null的字符串转成空字符串{@link SymbolType#EMPTY}
 	 *
 	 * @param str 字符串
 	 * @return String 返回的字符串
@@ -80,7 +108,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * 字符串为null则返回""，否则返回自身。
+	 * 字符串为null则返回{@link SymbolType#EMPTY}
 	 *
 	 * @param str        要转换的字符串
 	 * @param defaultStr 默认字符串
@@ -147,7 +175,7 @@ public class StringUtil {
 		if (isNotEmpty(sortField)) {
 			orderFiled.append(sortField);
 			if (isNotEmpty(order)) {
-				orderFiled.append(" ").append(order);
+				orderFiled.append(SymbolType.NBSP).append(order);
 			}
 		}
 		return orderFiled.toString();
@@ -171,7 +199,7 @@ public class StringUtil {
 			for (int i = 0; i < sortFieldLength; i++){
 				orderFiled.append(sortFields[i]);
 				if(ordersLength > 0 && i < ordersLength){
-					orderFiled.append(" ").append(orders[i]);
+					orderFiled.append(SymbolType.NBSP).append(orders[i]);
 				}
 				if(i + 1 < sortFieldLength){
 					orderFiled.append(SymbolType.COMMA);
@@ -179,6 +207,36 @@ public class StringUtil {
 			}
 		}
 		return orderFiled.toString();
+	}
+
+	/**
+	 * 将用指定分隔符拼接成的字符串去重
+	 *
+	 * @param dataStr 数据字符串
+	 * @return 去重后拼接的字符串
+	 */
+	public static String removeRepeatData(String dataStr) {
+		return removeRepeatData(dataStr, SymbolType.COMMA);
+	}
+
+	/**
+	 * 将用指定分隔符拼接成的字符串去重
+	 *
+	 * @param dataStr 数据字符串
+	 * @param delimiter 数据字符串中的拼接符
+	 * @return 去重后拼接的字符串
+	 */
+	public static String removeRepeatData(String dataStr, String delimiter) {
+		if (StringUtil.isEmpty(dataStr)) {
+			return SymbolType.EMPTY;
+		}
+		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
+		Object[] objects = Arrays.stream(dataStr.split(delimiter)).distinct().toArray();
+		return ConvertUtil.arrayToString(objects);
+	}
+
+	public static void main(String[] args) {
+		System.out.println(removeRepeatData("aa,cc,aa,1,11,33,1,33", ""));
 	}
 
 	/**

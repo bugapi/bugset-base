@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -19,6 +18,119 @@ import java.util.Date;
  * @since 0.0.1
  */
 public class DateUtil {
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:20100910210637578
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String format(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS%1$tL", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:2010-09-10 21:08:17
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatYMDHMS(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:2010-09-10 21:08:17
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatYMDHMSS(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS.%1$tL", date);
+	}
+
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:2010-09-10
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatYMD(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY-%1$tm-%1$td", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:2010年09月10日
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatYMD_CN(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY年%1$tm月%1$td日", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:2010-09-10 21:08:17
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatYMDHMS_CN(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tY年%1$tm月%1$td日 %1$tH:%1$tM:%1$tS", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:09-10
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatMD(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tm-%1$td", date);
+	}
+
+	/**
+	 * 将日期转成字符串
+	 * 返回:09月10日
+	 *
+	 * @param date 日期
+	 * @return String 指定格式的日期字符串
+	 */
+	public static String formatMD_CN(Date date) {
+		if (date == null) {
+			return SymbolType.EMPTY;
+		}
+		return String.format("%1$tm月%1$td日", date);
+	}
 
 	/**
 	 * 返回当前日期格式化后的字符串
@@ -32,35 +144,58 @@ public class DateUtil {
 	/**
 	 * 返回当前日期格式化后的字符串
 	 *
-	 * @param dateFormatEnum 日期格式
+	 * @param dateformatnum 日期格式
 	 * @return 格式化后的日期
 	 */
-	public static String formatCurrentDateToString(DateFormatEnum dateFormatEnum) {
-		return formatDateToString(null, dateFormatEnum);
+	public static String formatCurrentDateToString(DateFormatEnum dateformatnum) {
+		return formatDateToString(null, dateformatnum);
 	}
 
 	/**
 	 * 返回日期格式化后的字符串
 	 *
-	 * @param date           日期
-	 * @param dateFormatEnum 日期格式
+	 * @param date          日期
+	 * @param dateformatnum 日期格式
 	 * @return 格式化后的日期
 	 */
-	public static String formatDateToString(Date date, DateFormatEnum dateFormatEnum) {
+	public static String formatDateToString(Date date, DateFormatEnum dateformatnum) {
 		LocalDateTime localDateTime = dateToLocalDateTime(date);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormatEnum.getFormat());
+		return formatLocalDateTimeToString(localDateTime, dateformatnum);
+	}
+
+	/**
+	 * 返回日期格式化后的字符串
+	 *
+	 * @param localDateTime 日期
+	 * @param dateformatnum 日期格式
+	 * @return 格式化后的日期
+	 */
+	public static String formatLocalDateTimeToString(LocalDateTime localDateTime, DateFormatEnum dateformatnum) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateformatnum.getFormat());
 		return localDateTime.format(dtf);
+	}
+
+	/**
+	 * 返回日期格式化后的字符串
+	 *
+	 * @param localTime     日期
+	 * @param dateformatnum 日期格式
+	 * @return 格式化后的日期
+	 */
+	public static String formatLocalTimeToString(LocalTime localTime, DateFormatEnum dateformatnum) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateformatnum.getFormat());
+		return localTime.format(dtf);
 	}
 
 	/**
 	 * 返回日期字符串解析后的日期（日期字符串不合法返回null）
 	 *
-	 * @param dateStr        日期字符串
-	 * @param dateFormatEnum 日期格式
+	 * @param dateStr       日期字符串
+	 * @param dateformatnum 日期格式
 	 * @return 日期字符串解析后的日期 {@link DateFormatEnum}
 	 */
-	public static Date formatStringToDate(String dateStr, DateFormatEnum dateFormatEnum) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormatEnum.getFormat());
+	public static Date formatStringToDate(String dateStr, DateFormatEnum dateformatnum) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateformatnum.getFormat());
 		if (dateStr.contains(SymbolType.COLON)) {
 			LocalDateTime dateTime;
 			try {
@@ -114,8 +249,8 @@ public class DateUtil {
 	 *
 	 * @return 当前日期的结束时间（23:59:59）
 	 */
-	public static Date getLastDateTimeOfCurrentDay() {
-		return getLastDateTimeOfDay(dateToLocalDate(null));
+	public static Date getEndDateTimeOfCurrentDay() {
+		return getEndDateTimeOfDay(dateToLocalDate(null));
 	}
 
 	/**
@@ -124,8 +259,8 @@ public class DateUtil {
 	 * @param date 日期
 	 * @return 指定日期的结束时间（23:59:59）
 	 */
-	public static Date getLastDateTimeOfDay(Date date) {
-		return getLastDateTimeOfDay(dateToLocalDate(date));
+	public static Date getEndDateTimeOfDay(Date date) {
+		return getEndDateTimeOfDay(dateToLocalDate(date));
 	}
 
 	/**
@@ -134,7 +269,7 @@ public class DateUtil {
 	 * @param date 日期
 	 * @return 指定日期的结束时间（23:59:59）
 	 */
-	public static Date getLastDateTimeOfDay(LocalDate date) {
+	public static Date getEndDateTimeOfDay(LocalDate date) {
 		return localDateTimeToDate(LocalDateTime.of(date, LocalTime.MAX));
 	}
 
@@ -234,9 +369,40 @@ public class DateUtil {
 	/**
 	 * 比较日期（精确到天）
 	 *
+	 * @param firstDate     第一个日期
+	 * @param secondDate    第二个日期
+	 * @param dateformatnum 指定日期格式
+	 * @return int
+	 * 1    firstDate < secondDate
+	 * 0    firstDate == secondDate
+	 * -1   firstDate > secondDate
+	 */
+	public static int compareDate(String firstDate, String secondDate, DateFormatEnum dateformatnum) {
+		return compareDate(formatStringToDate(firstDate, dateformatnum), formatStringToDate(secondDate, dateformatnum));
+	}
+
+	/**
+	 * 比较日期（精确到秒）
+	 *
+	 * @param firstDate     第一个日期
+	 * @param secondDate    第二个日期
+	 * @param dateformatnum 指定日期格式
+	 * @return int
+	 * 1    firstDate < secondDate
+	 * 0    firstDate == secondDate
+	 * -1   firstDate > secondDate
+	 */
+	public static int compareDateTime(String firstDate, String secondDate, DateFormatEnum dateformatnum) {
+		return compareDateTime(formatStringToDate(firstDate, dateformatnum), formatStringToDate(secondDate, dateformatnum));
+	}
+
+	/**
+	 * 比较日期（精确到天）
+	 *
 	 * @param firstDate  第一个日期
 	 * @param secondDate 第二个日期
-	 * @return boolean 1    firstDate < secondDate
+	 * @return int
+	 * 1    firstDate < secondDate
 	 * 0    firstDate == secondDate
 	 * -1   firstDate > secondDate
 	 */
@@ -254,7 +420,8 @@ public class DateUtil {
 	 *
 	 * @param firstDate  第一个日期
 	 * @param secondDate 第二个日期
-	 * @return boolean 1    firstDate < secondDate
+	 * @return int
+	 * 1    firstDate < secondDate
 	 * 0    firstDate == secondDate
 	 * -1   firstDate > secondDate
 	 */
@@ -276,14 +443,23 @@ public class DateUtil {
 	 * @return boolean
 	 */
 	public static boolean isBeforeCurrentDate(int year, int month, int day) {
-		Calendar cal = Calendar.getInstance();
-		if (year < cal.get(Calendar.YEAR)) {
-			return true;
-		}
-		if (month < cal.get(Calendar.MONTH) + 1) {
-			return true;
-		}
-		return day < cal.get(Calendar.DAY_OF_MONTH);
+		LocalDate currentLocalDate = LocalDate.now();
+		LocalDate localDate = LocalDate.of(year, month, day);
+		System.out.println(localDate);
+		return localDate.isBefore(currentLocalDate);
+	}
+
+	public static void main(String[] args) {
+		String dateStr = formatDateToString(new Date(), DateFormatEnum.YYYYMMDDHH24MMSSSSS);
+		System.out.println(dateStr);
+		System.out.println(Long.parseLong(dateStr));
+		System.out.println(format(new Date(1568772836919L)));
+		System.out.println(formatYMDHMS_CN(new Date(1568772836919L)));
+		System.out.println(getEndDateTimeOfDay(new Date()));
+
+		System.out.println(compareDate("2019-09-18", "2019-09-17", DateFormatEnum.YYYYMMDD_BAR));
+
+		System.out.println(isBeforeCurrentDate(2019, 8, 20));
 	}
 
 	/**
@@ -381,6 +557,7 @@ public class DateUtil {
 
 	/**
 	 * 获取两个日期指定类型的时间间隔，只支持年月日
+	 * Period类方法getYears()，getMonths()和getDays()来计算.
 	 *
 	 * @param firstDate    第一个日期
 	 * @param secondDate   第二个日期
@@ -465,5 +642,29 @@ public class DateUtil {
 	private static Date localDateTimeToDate(LocalDateTime localDateTime) {
 		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant().truncatedTo(
 				ChronoUnit.SECONDS));
+	}
+
+	/**
+	 * 获取指定时间距离当前时间过去的时长
+	 *
+	 * @param date 日期
+	 * @return String 距离当前的时长
+	 */
+	public static String getThePastTime(Date date) {
+		long b = System.currentTimeMillis();
+		long a = date.getTime();
+		long c = (b - a) / 1000;
+		System.out.println(c);
+		if (c < 60) {
+			return c + "秒前";
+		} else if (c < 60 * 60) {
+			return (c / 60) + "分钟前";
+		} else if (c < 60 * 60 * 24) {
+			return (c / 60 / 60) + "小时前";
+		} else if (c < 60 * 60 * 24 * 3) {
+			return (c / 60 / 60 / 24) + "天前";
+		} else {
+			return formatDateToString(date, DateFormatEnum.YYYYMMDD_BAR);
+		}
 	}
 }

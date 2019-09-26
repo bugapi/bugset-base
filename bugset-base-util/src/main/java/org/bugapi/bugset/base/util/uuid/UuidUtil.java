@@ -1,5 +1,7 @@
 package org.bugapi.bugset.base.util.uuid;
 
+import org.bugapi.bugset.base.constant.SymbolType;
+
 import java.util.UUID;
 
 /**
@@ -16,6 +18,6 @@ public class UuidUtil {
 	 * @return 处理后的UUID字符串
 	 */
 	public static String getUuid() {
-		return UUID.randomUUID().toString().toUpperCase().replace("-", "");
+		return UUID.randomUUID().toString().toUpperCase().replace(SymbolType.HYPHEN, SymbolType.EMPTY);
 	}
 }

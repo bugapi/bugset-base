@@ -47,6 +47,17 @@ public enum DateFormatEnum {
 	 * 日期格式化 yyyy年MM月dd日
 	 */
 	YYYYMMDD_CHN("yyyy年MM月dd日"),
+
+	/**
+	 * 日期和时间格式化24小时制 yyyy-MM-dd hh24:mm
+	 */
+	YYYYMMDDHH24MM_BAR("yyyy-MM-dd HH:mm"),
+
+	/**
+	 * 日期和时间格式化24小时制 HH:mm
+	 */
+	HH24MM("HH:mm"),
+
 	/**
 	 * 日期和时间格式化12小时制 yyyy-MM-dd hh:mm:ss
 	 */
@@ -54,7 +65,22 @@ public enum DateFormatEnum {
 	/**
 	 * 日期和时间格式化24小时制 yyyy-MM-dd hh24:mm:ss
 	 */
-	YYYYMMDDHH24MMSS_BAR("yyyy-MM-dd HH:mm:ss");
+	YYYYMMDDHH24MMSS_BAR("yyyy-MM-dd HH:mm:ss"),
+
+	/**
+	 * 日期格式化 yyyy年MM月dd日 hh24:mm:ss
+	 */
+	YYYYMMDDHH24MMSS_CHN("yyyy年MM月dd日 HH:mm:ss"),
+
+	/**
+	 * 日期格式化 yyyy-MM-dd HH:mm:ss.SSS 例如：2019-09-18 10:46:04.037
+	 */
+	YYYYMMDDHH24MMSSSSS_BAR("yyyy-MM-dd HH:mm:ss.SSS"),
+
+	/**
+	 * 日期格式化 yyyyMMddHHmmssSSS 例如：2019-09-18 10:46:04.037
+	 */
+	YYYYMMDDHH24MMSSSSS("yyyyMMddHHmmssSSS");
 
 	/**
 	 * 格式
