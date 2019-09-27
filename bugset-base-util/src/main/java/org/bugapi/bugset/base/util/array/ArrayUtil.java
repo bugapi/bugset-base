@@ -1,13 +1,8 @@
 package org.bugapi.bugset.base.util.array;
 
-import org.bugapi.bugset.base.util.convert.ConvertUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 数组工具类
