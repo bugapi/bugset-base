@@ -35,6 +35,7 @@ public class CollectionUtil {
 	 * 去除list集合中的重复元素
 	 *
 	 * @param list list集合
+	 * @return List 去重之后的集合
 	 */
 	public static <T> List<T> removeRepeatData(List<T> list) {
 		if (isEmpty(list)) {

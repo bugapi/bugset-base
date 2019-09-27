@@ -1,8 +1,10 @@
 package org.bugapi.bugset.base.util.convert;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 import org.bugapi.bugset.base.constant.SymbolType;
 import org.bugapi.bugset.base.util.array.ArrayUtil;
 import org.bugapi.bugset.base.util.collection.CollectionUtil;
+import org.bugapi.bugset.base.util.object.ObjectUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 import org.bugapi.bugset.base.util.validate.ValiateUtil;
 
@@ -99,15 +101,8 @@ public class ConvertUtil {
 		if (ArrayUtil.isEmpty(arr)) {
 			return SymbolType.EMPTY;
 		}
-		StringBuilder result = new StringBuilder();
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		for (int i = 0, length = arr.length; i < length; i++) {
-			if (result.length() > 0 && i > 0) {
-				result.append(delimiter);
-			}
-			result.append(arr[i]);
-		}
-		return result.toString();
+		return Arrays.stream(arr).boxed().map(String::valueOf).collect(Collectors.joining(delimiter));
 	}
 
 	/**
@@ -131,15 +126,17 @@ public class ConvertUtil {
 		if (ArrayUtil.isEmpty(arr)) {
 			return SymbolType.EMPTY;
 		}
-		StringBuilder result = new StringBuilder();
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
+		return Arrays.stream(arr).boxed().map(String::valueOf).collect(Collectors.joining(delimiter));
+
+		/*StringBuilder result = new StringBuilder();
 		for (int i = 0, length = arr.length; i < length; i++) {
 			if (result.length() > 0 && i > 0) {
 				result.append(delimiter);
 			}
 			result.append(arr[i]);
 		}
-		return result.toString();
+		return result.toString();*/
 	}
 
 	/**
@@ -165,17 +162,19 @@ public class ConvertUtil {
 		if (ArrayUtil.isEmpty(arr)) {
 			return SymbolType.EMPTY;
 		}
-		StringBuilder result = new StringBuilder();
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
+
+		return Arrays.stream(arr).filter(ObjectUtil::isNotEmpty).map(String::valueOf).collect(Collectors.joining(delimiter));
+		/*StringBuilder result = new StringBuilder();
 		for (int i = 0, length = arr.length; i < length; i++) {
-			if (null != arr[i]) {
+			if (StringUtil.isEmpty(arr[i].toString())) {
 				if (result.length() > 0 && i > 0) {
 					result.append(delimiter);
 				}
 				result.append(arr[i]);
 			}
 		}
-		return result.toString();
+		return result.toString();*/
 	}
 
 	/**
@@ -201,7 +200,11 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		Long[] ids = new Long[strArr.length];
+
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
+		).map(Long::valueOf).toArray(Long[]::new);
+
+		/*Long[] ids = new Long[strArr.length];
 		if (strArr.length > 0) {
 			for (int i = 0; i < strArr.length; i++) {
 				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
@@ -211,7 +214,7 @@ public class ConvertUtil {
 				}
 			}
 		}
-		return ids;
+		return ids;*/
 	}
 
 	/**
@@ -237,7 +240,9 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		long[] ids = new long[strArr.length];
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
+		).mapToLong(Long::valueOf).toArray();
+		/*long[] ids = new long[strArr.length];
 		if (strArr.length > 0) {
 			for (int i = 0; i < strArr.length; i++) {
 				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
@@ -247,7 +252,7 @@ public class ConvertUtil {
 				}
 			}
 		}
-		return ids;
+		return ids;*/
 	}
 
 	/**
@@ -273,17 +278,8 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		Integer[] ids = new Integer[strArr.length];
-		if (strArr.length > 0) {
-			for (int i = 0; i < strArr.length; i++) {
-				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
-					ids[i] = Integer.parseInt(strArr[i].trim());
-				} else {
-					ids[i] = 0;
-				}
-			}
-		}
-		return ids;
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
+		).map(Integer::valueOf).toArray(Integer[]::new);
 	}
 
 	/**
@@ -309,7 +305,9 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		int[] ids = new int[strArr.length];
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
+		).mapToInt(Integer::parseInt).toArray();
+		/*int[] ids = new int[strArr.length];
 		if (strArr.length > 0) {
 			for (int i = 0; i < strArr.length; i++) {
 				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
@@ -319,7 +317,7 @@ public class ConvertUtil {
 				}
 			}
 		}
-		return ids;
+		return ids;*/
 	}
 
 	/* --------------------------------------  包装类型的数组与基本类型数组之间转换  ------------------------------------ */
@@ -334,12 +332,12 @@ public class ConvertUtil {
 		if (ArrayUtil.isEmpty(values)) {
 			return new Integer[0];
 		}
-		int length = values.length;
-		Integer[] array = new Integer[length];
-		for (int i = 0; i < length; i++) {
-			array[i] = values[i];
-		}
-		return array;
+		return Arrays.stream(values).boxed().toArray(Integer[]::new);
+	}
+
+	public static void main(String[] args) {
+		int[] intarr = new int[0];
+		System.out.println(wrap(intarr));
 	}
 
 	/**
@@ -349,23 +347,10 @@ public class ConvertUtil {
 	 * @return int[] 原始类型数组
 	 */
 	public static int[] unWrap(Integer... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
+		if (ArrayUtil.isEmpty(values)) {
 			return new int[0];
 		}
-
-		int[] array = new int[length];
-		for (int i = 0; i < length; i++) {
-			if (null == values[i]) {
-				array[i] = 0;
-			} else {
-				array[i] = values[i];
-			}
-		}
-		return array;
+		return Arrays.stream(values).mapToInt(Integer::valueOf).toArray();
 	}
 
 	/**
@@ -375,19 +360,7 @@ public class ConvertUtil {
 	 * @return Long[] 包装类型数组
 	 */
 	public static Long[] wrap(long... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
-			return new Long[0];
-		}
-
-		Long[] array = new Long[length];
-		for (int i = 0; i < length; i++) {
-			array[i] = values[i];
-		}
-		return array;
+		return Arrays.stream(values).boxed().toArray(Long[]::new);
 	}
 
 	/**
@@ -397,7 +370,8 @@ public class ConvertUtil {
 	 * @return long[] 原始类型数组
 	 */
 	public static long[] unWrap(Long... values) {
-		if (null == values) {
+		return Arrays.stream(values).mapToLong(Long::valueOf).toArray();
+		/*if (null == values) {
 			return null;
 		}
 		int length = values.length;
@@ -413,7 +387,7 @@ public class ConvertUtil {
 				array[i] = values[i];
 			}
 		}
-		return array;
+		return array;*/
 	}
 
 	/**

@@ -1,19 +1,33 @@
 package org.bugapi.bugset.base.util.string;
 
 import org.bugapi.bugset.base.constant.SymbolType;
-import org.bugapi.bugset.base.util.convert.ConvertUtil;
 
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 字符串工具类
+ * 字符串工具类 两边
  *
  * @author zhangxw
  * @since 0.0.1
  */
 public class StringUtil {
+
+	/**
+	 * 去除左右两边的字符串
+	 */
+	public static final int TRIM_LEFT_RIGHT = 0;
+
+	/**
+	 * 去除左边的字符串
+	 */
+	public static final int TRIM_LEFT = -1;
+
+	/**
+	 * 去除右边的字符串
+	 */
+	public static final int TRIM_RIGHT = 1;
 
 	/**
 	 * 获取默认的字符串分隔符
@@ -44,7 +58,7 @@ public class StringUtil {
 	 * @return boolean 【true：字符串为null、字符串由空白字符组成】
 	 */
 	public static boolean isEmpty(CharSequence str) {
-		return null == str || trim(str, 0).length() == 0;
+		return null == str || trim(str, TRIM_LEFT_RIGHT).length() == 0;
 	}
 
 	/**
@@ -54,7 +68,7 @@ public class StringUtil {
 	 * @return boolean 【false：字符串为null、字符串由空白字符组成】
 	 */
 	public static boolean isNotEmpty(CharSequence str) {
-		return null != str && !SymbolType.EMPTY.equals(trim(str, 0));
+		return null != str && !SymbolType.EMPTY.equals(trim(str, TRIM_LEFT_RIGHT));
 	}
 
 	/**
@@ -138,7 +152,7 @@ public class StringUtil {
 	 * @return String 转后的字符串
 	 */
 	public static String firstCharLowCase(String str) {
-		str = trim(str, 0);
+		str = trim(str, TRIM_LEFT_RIGHT);
 		if (isNotEmpty(str)) {
 			return str.substring(0, 1).toLowerCase() + str.substring(1);
 		} else {
@@ -153,7 +167,7 @@ public class StringUtil {
 	 * @return String 转后的字符串
 	 */
 	public static String firstCharUpCase(String str) {
-		str = trim(str, 0);
+		str = trim(str, TRIM_LEFT_RIGHT);
 		if (isNotEmpty(str)) {
 			return str.substring(0, 1).toUpperCase() + str.substring(1);
 		} else {
@@ -231,12 +245,11 @@ public class StringUtil {
 			return SymbolType.EMPTY;
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		Object[] objects = Arrays.stream(dataStr.split(delimiter)).distinct().toArray();
-		return ConvertUtil.arrayToString(objects);
+		return Arrays.stream(dataStr.split(delimiter)).filter(StringUtil::isNotEmpty).distinct().collect(Collectors.joining(delimiter));
 	}
 
 	public static void main(String[] args) {
-		System.out.println(removeRepeatData("aa,cc,aa,1,11,33,1,33", ""));
+		System.out.println(removeRepeatData("aa,cc,aa,1,11,,1,33", ""));
 	}
 
 	/**

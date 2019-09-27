@@ -1,6 +1,7 @@
 package org.bugapi.bugset.base.util.array;
 
 import org.bugapi.bugset.base.util.convert.ConvertUtil;
+import org.bugapi.bugset.base.util.string.StringUtil;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -149,7 +150,7 @@ public class ArrayUtil {
 		if (isEmpty(array)) {
 			return new String[0];
 		}
-		return Arrays.stream(array).distinct().toArray(String[]::new);
+		return Arrays.stream(array).filter(StringUtil::isNotEmpty).distinct().toArray(String[]::new);
 	}
 
 	public static void main(String[] args) {

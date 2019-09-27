@@ -1,5 +1,7 @@
 package org.bugapi.bugset.base.util.object;
 
+import org.bugapi.bugset.base.util.string.StringUtil;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -82,7 +84,7 @@ public class ObjectUtil {
 			return !((Optional) obj).isPresent();
 			// 判断是否是字符串
 		} else if (obj instanceof CharSequence) {
-			return ((CharSequence) obj).length() == 0;
+			return StringUtil.trim((CharSequence) obj, 0).length() == 0;
 			// 判断是否是数组
 		} else if (obj.getClass().isArray()) {
 			return Array.getLength(obj) == 0;
@@ -92,6 +94,34 @@ public class ObjectUtil {
 		} else {
 			// 判断为map集合
 			return obj instanceof Map && ((Map) obj).isEmpty();
+		}
+	}
+
+	/**
+	 * 判断对象是否为空
+	 *
+	 * @param obj Object对象
+	 * @return boolean 【false：空】
+	 */
+	public static boolean isNotEmpty(Object obj) {
+		// 对象是否为空
+		if (obj == null) {
+			return false;
+			// 判断是否是optional对象
+		} else if (obj instanceof Optional) {
+			return ((Optional) obj).isPresent();
+			// 判断是否是字符串
+		} else if (obj instanceof CharSequence) {
+			return StringUtil.trim((CharSequence) obj, StringUtil.TRIM_LEFT_RIGHT).length() >= 1;
+			// 判断是否是数组
+		} else if (obj.getClass().isArray()) {
+			return Array.getLength(obj) >= 1;
+			// 判断是否是集合
+		} else if (obj instanceof Collection) {
+			return ((Collection) obj).size() >= 1;
+		} else {
+			// 判断为map集合
+			return obj instanceof Map && ((Map) obj).size() >= 1;
 		}
 	}
 
