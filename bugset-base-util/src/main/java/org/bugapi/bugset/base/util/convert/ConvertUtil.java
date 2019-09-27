@@ -9,7 +9,6 @@ import org.bugapi.bugset.base.util.string.StringUtil;
 import org.bugapi.bugset.base.util.validate.ValiateUtil;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -494,18 +493,6 @@ public class ConvertUtil {
 				return 0L;
 			}
 		}).boxed().collect(Collectors.toList());
-		/*try {
-			List<Long> returnList = new ArrayList<>();
-			if(list != null && list.size() > 0){
-				Method method = list.get(0).getClass().getMethod(MethodType.GET_ID);
-				for (Object object : list) {
-					returnList.add((Long) method.invoke(object));
-				}
-			}
-			return returnList;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}*/
 	}
 
 	/**
