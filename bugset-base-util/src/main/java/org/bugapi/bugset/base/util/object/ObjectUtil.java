@@ -61,14 +61,13 @@ public class ObjectUtil {
 	public static <T extends Comparable<? super T>> int compare(T obj1, T obj2, boolean nullGreater) {
 		if (obj1 == obj2) {
 			return 0;
-		} else if (obj1 == null) {
+		} else if (isNull(obj1)) {
 			return nullGreater ? 1 : -1;
-		} else if (obj2 == null) {
+		} else if (isNull(obj2)) {
 			return nullGreater ? -1 : 1;
 		}
 		return obj1.compareTo(obj2);
 	}
-
 	/**
 	 * 判断对象是否为空
 	 *
@@ -77,7 +76,7 @@ public class ObjectUtil {
 	 */
 	public static boolean isEmpty(Object obj) {
 		// 对象是否为空
-		if (obj == null) {
+		if (isNull(obj)) {
 			return true;
 			// 判断是否是optional对象
 		} else if (obj instanceof Optional) {
@@ -91,9 +90,11 @@ public class ObjectUtil {
 			// 判断是否是集合
 		} else if (obj instanceof Collection) {
 			return ((Collection) obj).isEmpty();
-		} else {
+		} else if (obj instanceof Map) {
 			// 判断为map集合
-			return obj instanceof Map && ((Map) obj).isEmpty();
+			return ((Map) obj).isEmpty();
+		}else{
+			return false;
 		}
 	}
 
@@ -105,7 +106,7 @@ public class ObjectUtil {
 	 */
 	public static boolean isNotEmpty(Object obj) {
 		// 对象是否为空
-		if (obj == null) {
+		if (isNull(obj)) {
 			return false;
 			// 判断是否是optional对象
 		} else if (obj instanceof Optional) {
@@ -119,9 +120,11 @@ public class ObjectUtil {
 			// 判断是否是集合
 		} else if (obj instanceof Collection) {
 			return ((Collection) obj).size() >= 1;
-		} else {
+		} else if (obj instanceof Map) {
 			// 判断为map集合
-			return obj instanceof Map && ((Map) obj).size() >= 1;
+			return ((Map) obj).size() >= 1;
+		}else{
+			return true;
 		}
 	}
 
@@ -161,29 +164,29 @@ public class ObjectUtil {
 	 * 对象中是否包含元素
 	 * 支持的对象：String、Collection、Map、Iterator、Enumeration、Array
 	 *
-	 * @param obj     对象集合、数组、Map对象等
+	 * @param data     对象集合、数组、Map对象等
 	 * @param element 一个元素
 	 * @return boolean true:包含、false:不包含
 	 */
-	public static boolean contains(Object obj, Object element) {
-		if (obj == null) {
+	public static boolean contains(Object data, Object element) {
+		if (data == null) {
 			return false;
 		}
-		if (obj instanceof String) {
+		if (data instanceof String) {
 			if (element == null) {
 				return false;
 			}
-			return ((String) obj).contains(element.toString());
+			return ((String) data).contains(element.toString());
 		}
-		if (obj instanceof Collection) {
-			return ((Collection<?>) obj).contains(element);
+		if (data instanceof Collection) {
+			return ((Collection<?>) data).contains(element);
 		}
-		if (obj instanceof Map) {
-			return ((Map<?, ?>) obj).containsValue(element);
+		if (data instanceof Map) {
+			return ((Map<?, ?>) data).containsValue(element);
 		}
 
-		if (obj instanceof Iterator) {
-			Iterator<?> iter = (Iterator<?>) obj;
+		if (data instanceof Iterator) {
+			Iterator<?> iter = (Iterator<?>) data;
 			while (iter.hasNext()) {
 				Object o = iter.next();
 				if (equal(o, element)) {
@@ -192,8 +195,8 @@ public class ObjectUtil {
 			}
 			return false;
 		}
-		if (obj instanceof Enumeration) {
-			Enumeration<?> enumeration = (Enumeration<?>) obj;
+		if (data instanceof Enumeration) {
+			Enumeration<?> enumeration = (Enumeration<?>) data;
 			while (enumeration.hasMoreElements()) {
 				Object o = enumeration.nextElement();
 				if (equal(o, element)) {
@@ -202,10 +205,10 @@ public class ObjectUtil {
 			}
 			return false;
 		}
-		if (obj.getClass().isArray()) {
-			int len = Array.getLength(obj);
+		if (data.getClass().isArray()) {
+			int len = Array.getLength(data);
 			for (int i = 0; i < len; i++) {
-				Object o = Array.get(obj, i);
+				Object o = Array.get(data, i);
 				if (equal(o, element)) {
 					return true;
 				}

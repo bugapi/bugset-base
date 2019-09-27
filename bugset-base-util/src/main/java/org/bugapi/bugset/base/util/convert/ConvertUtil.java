@@ -1,6 +1,6 @@
 package org.bugapi.bugset.base.util.convert;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+import org.bugapi.bugset.base.constant.MethodType;
 import org.bugapi.bugset.base.constant.SymbolType;
 import org.bugapi.bugset.base.util.array.ArrayUtil;
 import org.bugapi.bugset.base.util.collection.CollectionUtil;
@@ -8,6 +8,8 @@ import org.bugapi.bugset.base.util.object.ObjectUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 import org.bugapi.bugset.base.util.validate.ValiateUtil;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -128,15 +130,6 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		return Arrays.stream(arr).boxed().map(String::valueOf).collect(Collectors.joining(delimiter));
-
-		/*StringBuilder result = new StringBuilder();
-		for (int i = 0, length = arr.length; i < length; i++) {
-			if (result.length() > 0 && i > 0) {
-				result.append(delimiter);
-			}
-			result.append(arr[i]);
-		}
-		return result.toString();*/
 	}
 
 	/**
@@ -163,18 +156,7 @@ public class ConvertUtil {
 			return SymbolType.EMPTY;
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-
 		return Arrays.stream(arr).filter(ObjectUtil::isNotEmpty).map(String::valueOf).collect(Collectors.joining(delimiter));
-		/*StringBuilder result = new StringBuilder();
-		for (int i = 0, length = arr.length; i < length; i++) {
-			if (StringUtil.isEmpty(arr[i].toString())) {
-				if (result.length() > 0 && i > 0) {
-					result.append(delimiter);
-				}
-				result.append(arr[i]);
-			}
-		}
-		return result.toString();*/
 	}
 
 	/**
@@ -201,20 +183,7 @@ public class ConvertUtil {
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
 
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
-		).map(Long::valueOf).toArray(Long[]::new);
-
-		/*Long[] ids = new Long[strArr.length];
-		if (strArr.length > 0) {
-			for (int i = 0; i < strArr.length; i++) {
-				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
-					ids[i] = Long.parseLong(strArr[i].trim());
-				} else {
-					ids[i] = 0L;
-				}
-			}
-		}
-		return ids;*/
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).map(Long::valueOf).toArray(Long[]::new);
 	}
 
 	/**
@@ -240,19 +209,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
-		).mapToLong(Long::valueOf).toArray();
-		/*long[] ids = new long[strArr.length];
-		if (strArr.length > 0) {
-			for (int i = 0; i < strArr.length; i++) {
-				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
-					ids[i] = Long.parseLong(strArr[i].trim());
-				} else {
-					ids[i] = 0L;
-				}
-			}
-		}
-		return ids;*/
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).mapToLong(Long::valueOf).toArray();
 	}
 
 	/**
@@ -278,8 +235,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
-		).map(Integer::valueOf).toArray(Integer[]::new);
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).map(Integer::valueOf).toArray(Integer[]::new);
 	}
 
 	/**
@@ -305,19 +261,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim
-		).mapToInt(Integer::parseInt).toArray();
-		/*int[] ids = new int[strArr.length];
-		if (strArr.length > 0) {
-			for (int i = 0; i < strArr.length; i++) {
-				if (StringUtil.isNotEmpty(strArr[i]) && ValiateUtil.isIntegerNumber(strArr[i].trim())) {
-					ids[i] = Integer.parseInt(strArr[i].trim());
-				} else {
-					ids[i] = 0;
-				}
-			}
-		}
-		return ids;*/
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).mapToInt(Integer::parseInt).toArray();
 	}
 
 	/* --------------------------------------  包装类型的数组与基本类型数组之间转换  ------------------------------------ */
@@ -335,11 +279,6 @@ public class ConvertUtil {
 		return Arrays.stream(values).boxed().toArray(Integer[]::new);
 	}
 
-	public static void main(String[] args) {
-		int[] intarr = new int[0];
-		System.out.println(wrap(intarr));
-	}
-
 	/**
 	 * 包装类数组转为原始类型数组
 	 *
@@ -350,7 +289,7 @@ public class ConvertUtil {
 		if (ArrayUtil.isEmpty(values)) {
 			return new int[0];
 		}
-		return Arrays.stream(values).mapToInt(Integer::valueOf).toArray();
+		return Arrays.stream(values).filter(ObjectUtil::isNotNull).mapToInt(Integer::valueOf).toArray();
 	}
 
 	/**
@@ -360,6 +299,9 @@ public class ConvertUtil {
 	 * @return Long[] 包装类型数组
 	 */
 	public static Long[] wrap(long... values) {
+		if (ArrayUtil.isEmpty(values)) {
+			return new Long[0];
+		}
 		return Arrays.stream(values).boxed().toArray(Long[]::new);
 	}
 
@@ -370,72 +312,10 @@ public class ConvertUtil {
 	 * @return long[] 原始类型数组
 	 */
 	public static long[] unWrap(Long... values) {
-		return Arrays.stream(values).mapToLong(Long::valueOf).toArray();
-		/*if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
+		if (ArrayUtil.isEmpty(values)) {
 			return new long[0];
 		}
-
-		long[] array = new long[length];
-		for (int i = 0; i < length; i++) {
-			if (null == values[i]) {
-				array[i] = 0;
-			} else {
-				array[i] = values[i];
-			}
-		}
-		return array;*/
-	}
-
-	/**
-	 * 将原始类型数组包装为包装类型
-	 *
-	 * @param values 原始类型数组
-	 * @return Float[] 包装类型数组
-	 */
-	public static Float[] wrap(float... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
-			return new Float[0];
-		}
-
-		Float[] array = new Float[length];
-		for (int i = 0; i < length; i++) {
-			array[i] = values[i];
-		}
-		return array;
-	}
-
-	/**
-	 * 包装类数组转为原始类型数组
-	 *
-	 * @param values 包装类型数组
-	 * @return float[] 原始类型数组
-	 */
-	public static float[] unWrap(Float... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
-			return new float[0];
-		}
-
-		float[] array = new float[length];
-		for (int i = 0; i < length; i++) {
-			if (null == values[i]) {
-				array[i] = 0;
-			} else {
-				array[i] = values[i];
-			}
-		}
-		return array;
+		return Arrays.stream(values).filter(ObjectUtil::isNotNull).mapToLong(Long::valueOf).toArray();
 	}
 
 	/**
@@ -445,19 +325,10 @@ public class ConvertUtil {
 	 * @return Double[] 包装类型数组
 	 */
 	public static Double[] wrap(double... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
+		if (ArrayUtil.isEmpty(values)) {
 			return new Double[0];
 		}
-
-		Double[] array = new Double[length];
-		for (int i = 0; i < length; i++) {
-			array[i] = values[i];
-		}
-		return array;
+		return Arrays.stream(values).boxed().toArray(Double[]::new);
 	}
 
 	/**
@@ -467,23 +338,10 @@ public class ConvertUtil {
 	 * @return double[] 原始类型数组
 	 */
 	public static double[] unWrap(Double... values) {
-		if (null == values) {
-			return null;
-		}
-		int length = values.length;
-		if (0 == length) {
+		if (ArrayUtil.isEmpty(values)) {
 			return new double[0];
 		}
-
-		double[] array = new double[length];
-		for (int i = 0; i < length; i++) {
-			if (null == values[i]) {
-				array[i] = 0;
-			} else {
-				array[i] = values[i];
-			}
-		}
-		return array;
+		return Arrays.stream(values).filter(ObjectUtil::isNotNull).mapToDouble(Double::valueOf).toArray();
 	}
 
 	/* ----------------------------------------  集合与字符串之间的转换  -------------------------------------- */
@@ -511,17 +369,7 @@ public class ConvertUtil {
 		}
 		StringBuilder result = new StringBuilder();
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		int i = 0;
-		for (T tmp : collection) {
-			i++;
-			if (null != tmp) {
-				if (result.length() > 0 && i > 0) {
-					result.append(delimiter);
-				}
-				result.append(tmp);
-			}
-		}
-		return result.toString();
+		return collection.stream().filter(ObjectUtil::isNotEmpty).map(String::valueOf).collect(Collectors.joining(delimiter));
 	}
 
 	/**
@@ -546,7 +394,7 @@ public class ConvertUtil {
 			return new ArrayList<>();
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		return Arrays.stream(arrStr.split(delimiter)).map(Long::parseLong).collect(Collectors.toList());
+		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(Long::parseLong).collect(Collectors.toList());
 	}
 
 	/**
@@ -571,7 +419,199 @@ public class ConvertUtil {
 			return new ArrayList<>();
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		return Arrays.stream(arrStr.split(delimiter)).map(Integer::parseInt).collect(Collectors.toList());
+		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(Integer::parseInt).collect(Collectors.toList());
+	}
+
+	/* ----------------------------------------  集合与数组之间的转换  -------------------------------------- */
+
+	/**
+	 * 将数组转成List
+	 *
+	 * @param arr 数组
+	 * @return List list集合
+	 */
+	@SafeVarargs
+	public static <T> List<T> arrayToList(T... arr) {
+		if (ArrayUtil.isEmpty(arr)) {
+			return new ArrayList<T>();
+		}
+		return Arrays.stream(arr).filter(ObjectUtil::isNotEmpty).collect(Collectors.toList());
+	}
+
+
+	/**
+	 * 将数组转成List
+	 *
+	 * @param arr 数组
+	 * @return List list集合
+	 */
+	public static List<Integer> arrayToList(int... arr) {
+		if (ArrayUtil.isEmpty(arr)) {
+			return new ArrayList<Integer>();
+		}
+		return Arrays.stream(arr).boxed().collect(Collectors.toList());
+	}
+
+	/**
+	 * 将数组转成List
+	 *
+	 * @param arr 数组
+	 * @return List list集合
+	 */
+	public static List<Long> arrayToList(long... arr) {
+		if (ArrayUtil.isEmpty(arr)) {
+			return new ArrayList<Long>();
+		}
+		return Arrays.stream(arr).boxed().collect(Collectors.toList());
+	}
+
+	/* ----------------------------------------  集合与集合之间的转换  -------------------------------------- */
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> List<Long> objectListToLongIdList(List<T> list) {
+		return objectListToLongIdList(list, MethodType.GET_ID);
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> List<Long> objectListToLongIdList(List<T> list, final String method) {
+		if (CollectionUtil.isEmpty(list)) {
+			return new ArrayList<Long>();
+		}
+		return list.stream().filter(ObjectUtil::isNotEmpty).mapToLong(obj -> {
+			try {
+				return (long) obj.getClass().getMethod(method).invoke(obj);
+			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				return 0L;
+			}
+		}).boxed().collect(Collectors.toList());
+		/*try {
+			List<Long> returnList = new ArrayList<>();
+			if(list != null && list.size() > 0){
+				Method method = list.get(0).getClass().getMethod(MethodType.GET_ID);
+				for (Object object : list) {
+					returnList.add((Long) method.invoke(object));
+				}
+			}
+			return returnList;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}*/
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> List<String> objectListToStrIdList(List<T> list) {
+		return objectListToStrIdList(list, MethodType.GET_ID);
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> List<String> objectListToStrIdList(List<T> list, final String method) {
+		if (CollectionUtil.isEmpty(list)) {
+			return new ArrayList<String>();
+		}
+		return list.stream().filter(ObjectUtil::isNotEmpty).map(obj -> {
+			try {
+				return (String) obj.getClass().getMethod(method).invoke(obj);
+			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				return SymbolType.EMPTY;
+			}
+		}).collect(Collectors.toList());
+	}
+
+
+	/* ----------------------------------------  集合与map之间的转换  -------------------------------------- */
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> Map<String, T> objectListToStrKeyMap(List<T> list) {
+		return objectListToStrKeyMap(list, MethodType.GET_ID);
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> Map<String, T> objectListToStrKeyMap(List<T> list, final String method) {
+		if (CollectionUtil.isEmpty(list)) {
+			return new HashMap<String, T>();
+		}
+		return list.stream().filter(ObjectUtil::isNotEmpty).collect(
+				Collectors.toMap(obj -> {
+					try {
+						return (String) obj.getClass().getMethod(method).invoke(obj);
+					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+						return SymbolType.EMPTY;
+					}
+				}, obj -> obj));
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> Map<Long, T> objectListToLongKeyMap(List<T> list) {
+		return objectListToLongKeyMap(list, MethodType.GET_ID);
+	}
+
+	/**
+	 * 将对象的list转换成id的list
+	 *
+	 * @param list 对象List
+	 * @return id集合
+	 */
+	public static <T> Map<Long, T> objectListToLongKeyMap(List<T> list, final String method) {
+		if (CollectionUtil.isEmpty(list)) {
+			return new HashMap<Long, T>();
+		}
+		return list.stream().filter(ObjectUtil::isNotEmpty).collect(
+				Collectors.toMap(obj -> {
+					try {
+						return (Long) obj.getClass().getMethod(method).invoke(obj);
+					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+						return 0L;
+					}
+				}, obj -> obj));
+	}
+
+
+	public static void main(String[] args) {
+		int[] intarr = new int[]{1, 2};
+		long[] intarr1 = new long[]{1L, 4L};
+		Integer[] intarr2 = new Integer[]{6, 2, 7};
+		Long[] intarr3 = new Long[]{1L, 6L};
+		System.out.println(arrayToList(intarr));
+		System.out.println(arrayToList(intarr1));
+		System.out.println(arrayToList(intarr2));
+		System.out.println(arrayToList(intarr3));
+		String[] intarr4 = new String[]{"asd", "123"};
+		System.out.println(arrayToList(intarr4));
 	}
 
 }
