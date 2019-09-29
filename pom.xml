@@ -43,6 +43,15 @@
         <bugset.base.version>0.0.1-SNAPSHOT</bugset.base.version>
 
         <commons-lang3.version>3.9</commons-lang3.version>
+
+        <pinyin4j.version>2.5.0</pinyin4j.version>
+        <servlet-api.version>4.0.1</servlet-api.version>
+        <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <gt.version>17.2</gt.version>
+        <jts.version>1.13</jts.version>
+        <dbutils.version>1.7</dbutils.version>
     </properties>
 
     <dependencyManagement>
@@ -55,10 +64,64 @@
 
 
             <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-            <dependency>
+<!--            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>-->
+
+            <!-- 汉语拼音包 -->
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>${pinyin4j.version}</version>
+            </dependency>
+
+            <!-- HttpServelt的包 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+
+            <!-- 用于通过从request请求中的User-Agent中获取客户端浏览器类型、客户端操作系统、客户端ip地址等信息的jar插件 -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${UserAgentUtils.version}</version>
+            </dependency>
+
+            <!-- 阿里的JSON解析器和生成器 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- slf4j 所需的jar包 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- Geometry 空间分析方法几何图形操作包 -->
+            <dependency>
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-main</artifactId>
+                <version>${gt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vividsolutions</groupId>
+                <artifactId>jts</artifactId>
+                <version>${jts.version}</version>
+            </dependency>
+
+            <!-- DbUtils是一个为简化JDBC操作的小类库 -->
+            <dependency>
+                <groupId>commons-dbutils</groupId>
+                <artifactId>commons-dbutils</artifactId>
+                <version>${dbutils.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
