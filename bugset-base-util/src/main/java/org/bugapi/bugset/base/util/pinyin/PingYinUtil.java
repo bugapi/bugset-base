@@ -6,6 +6,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.bugapi.bugset.base.constant.PatternType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class PingYinUtil {
 					simplePinyin.append(str[0].charAt(0));
 				}
 				if (str == null) {
-					matcher = PATTERN.matcher(String.valueOf(c));
+					matcher = PatternType.NUMBER_LETTER_PATTERN.matcher(String.valueOf(c));
 					if (matcher.find()) {
 						fullPinyin.append(c);
 						simplePinyin.append(c);

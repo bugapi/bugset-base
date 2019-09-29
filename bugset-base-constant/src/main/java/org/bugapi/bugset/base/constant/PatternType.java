@@ -17,6 +17,6 @@ public class PatternType {
 	/**
 	 * 数字或者字母的正则表达式  ^(0?|[1-9]+[0-9]*)$  Numbers or letters
 	 */
-	private static final Pattern PATTERN = Pattern.compile("^[0-9]*[a-zA-Z]*+$");
+	public static final Pattern NUMBER_LETTER_PATTERN = Pattern.compile("^[0-9]*[a-zA-Z]*+$");
 
 }
