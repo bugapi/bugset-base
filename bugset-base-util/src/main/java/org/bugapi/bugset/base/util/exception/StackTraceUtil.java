@@ -10,24 +10,22 @@ public class StackTraceUtil {
 
 	/**
 	 * 获取异常的信息和发生的位置
-	 * @Title: getExceptionMsg
+	 *
 	 * @param e 异常类
 	 * @return String 异常信息
 	 */
 	public static String getExceptionMsg(Exception e){
-		if (null != e && null != e.getStackTrace()) {
+		if (null != e && null != e.getStackTrace() && e.getStackTrace().length >= 1) {
 			StackTraceElement stackTraceElement = e.getStackTrace()[0];
-			return "--error messag detail：" + e.toString() + "," + "file=" +
-					getFileName(stackTraceElement) + "," + "method=" +
-					getMethodName(stackTraceElement) + "," + "line=" +
-					getLineNumber(stackTraceElement);
+			return String.format("--error messag detail：%s, file=%s, method=%s, line=%s",e.toString(),
+					getFileName(stackTraceElement),getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
 		}
 		return "堆栈信息为空";
 	}
 
 	/**
-	 * @Title: getCurrentLineMsg
-	 * @Description: 获取当前进程的执行位置信息
+	 * 获取当前进程的执行位置信息
+	 *
 	 * @return String
 	 */
 	public static String getCurrentLineMsg(){
@@ -37,15 +35,13 @@ public class StackTraceUtil {
 		 */
 		int originStackIndex = 2;
 		StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[originStackIndex];
-		return "--current line detail：" + "file=" +
-				getFileName(stackTraceElement) + "," + "method=" +
-				getMethodName(stackTraceElement) + "," + "line=" +
-				getLineNumber(stackTraceElement);
+		return String.format("--current line detail：file=%s, method=%s, line=%s",
+				getFileName(stackTraceElement),getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
 	}
 
 	/**
 	 * 获取文件名
-	 * @Title: getFileName
+	 *
 	 * @param stackTraceElement Java线程中的方法栈信息
 	 * @return String 文件名
 	 */
@@ -57,7 +53,8 @@ public class StackTraceUtil {
 	}
 
 	/**
-	 * @Title: getClassName
+	 * 获取类名
+	 *
 	 * @param stackTraceElement Java线程中的方法栈信息
 	 * @return String 获取类名
 	 */
@@ -65,12 +62,12 @@ public class StackTraceUtil {
 		if(null != stackTraceElement) {
 			return stackTraceElement.getClassName();
 		}
-		return "com.tianque.grid.base.base.StackTraceUtil";
+		return "org.bugapi.bugset.base.util.exception.StackTraceUtil";
 	}
 
 	/**
 	 * 获取方法名
-	 * @Title: getMethodName
+	 *
 	 * @param stackTraceElement Java线程中的方法栈信息
 	 * @return String 方法名
 	 */
@@ -83,7 +80,7 @@ public class StackTraceUtil {
 
 	/**
 	 * 获取行号
-	 * @Title: getLineNumber
+	 *
 	 * @param stackTraceElement Java线程中的方法栈信息
 	 * @return int 行号
 	 */
@@ -92,5 +89,10 @@ public class StackTraceUtil {
 			return stackTraceElement.getLineNumber();
 		}
 		return 0;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getCurrentLineMsg());
+		System.out.println(getExceptionMsg(new Exception()));
 	}
 }

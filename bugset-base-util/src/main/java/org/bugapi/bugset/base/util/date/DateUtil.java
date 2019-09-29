@@ -303,10 +303,8 @@ public class DateUtil {
 			case MINUTE:
 				d2 = d1.plusMinutes(duration);
 				break;
-			case SECOND:
-				d2 = d1.plusSeconds(duration);
-				break;
 			default:
+				d2 = d1.plusSeconds(duration);
 				break;
 		}
 		return localDateTimeToDate(d2);
@@ -357,10 +355,8 @@ public class DateUtil {
 			case SECOND:
 				specific = date.getSecond();
 				break;
-			case MILLISECOND:
-				specific = date.toInstant(ZoneOffset.of("+8")).toEpochMilli();
-				break;
 			default:
+				specific = date.toInstant(ZoneOffset.of("+8")).toEpochMilli();
 				break;
 		}
 		return specific;
@@ -447,19 +443,6 @@ public class DateUtil {
 		LocalDate localDate = LocalDate.of(year, month, day);
 		System.out.println(localDate);
 		return localDate.isBefore(currentLocalDate);
-	}
-
-	public static void main(String[] args) {
-		String dateStr = formatDateToString(new Date(), DateFormatEnum.YYYYMMDDHH24MMSSSSS);
-		System.out.println(dateStr);
-		System.out.println(Long.parseLong(dateStr));
-		System.out.println(format(new Date(1568772836919L)));
-		System.out.println(formatYMDHMS_CN(new Date(1568772836919L)));
-		System.out.println(getEndDateTimeOfDay(new Date()));
-
-		System.out.println(compareDate("2019-09-18", "2019-09-17", DateFormatEnum.YYYYMMDD_BAR));
-
-		System.out.println(isBeforeCurrentDate(2019, 8, 20));
 	}
 
 	/**
@@ -577,6 +560,19 @@ public class DateUtil {
 			default:
 				throw new UnsupportedOperationException();
 		}
+	}
+
+	public static void main(String[] args) {
+		String dateStr = formatDateToString(new Date(), DateFormatEnum.YYYYMMDDHH24MMSSSSS);
+		System.out.println(dateStr);
+		System.out.println(Long.parseLong(dateStr));
+		System.out.println(format(new Date(1568772836919L)));
+		System.out.println(formatYMDHMS_CN(new Date(1568772836919L)));
+		System.out.println(getEndDateTimeOfDay(new Date()));
+
+		System.out.println(compareDate("2019-09-18", "2019-09-17", DateFormatEnum.YYYYMMDD_BAR));
+
+		System.out.println(isBeforeCurrentDate(2019, 8, 20));
 	}
 
 	/**
