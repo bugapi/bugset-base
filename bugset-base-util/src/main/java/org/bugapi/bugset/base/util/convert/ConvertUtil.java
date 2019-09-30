@@ -4,9 +4,10 @@ import org.bugapi.bugset.base.constant.MethodType;
 import org.bugapi.bugset.base.constant.SymbolType;
 import org.bugapi.bugset.base.util.array.ArrayUtil;
 import org.bugapi.bugset.base.util.collection.CollectionUtil;
+import org.bugapi.bugset.base.util.collection.MapUtil;
 import org.bugapi.bugset.base.util.object.ObjectUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
-import org.bugapi.bugset.base.util.validate.ValiateUtil;
+import org.bugapi.bugset.base.util.validate.ValidateUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -182,7 +183,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).map(Integer::valueOf).toArray(Integer[]::new);
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValidateUtil::isIntegerNumber).map(String::trim).map(Integer::valueOf).toArray(Integer[]::new);
 	}
 
 	/**
@@ -208,7 +209,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).mapToInt(Integer::parseInt).toArray();
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValidateUtil::isIntegerNumber).map(String::trim).mapToInt(Integer::parseInt).toArray();
 	}
 
 	/**
@@ -235,7 +236,7 @@ public class ConvertUtil {
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
 
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).map(Long::valueOf).toArray(Long[]::new);
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValidateUtil::isIntegerNumber).map(String::trim).map(Long::valueOf).toArray(Long[]::new);
 	}
 
 	/**
@@ -261,7 +262,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		String[] strArr = strIds.split(delimiter);
-		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(String::trim).mapToLong(Long::valueOf).toArray();
+		return Arrays.stream(strArr).filter(ObjectUtil::isNotEmpty).filter(ValidateUtil::isIntegerNumber).map(String::trim).mapToLong(Long::valueOf).toArray();
 	}
 
 	/* --------------------------------------  包装类型的数组与基本类型数组之间转换  ------------------------------------ */
@@ -365,11 +366,14 @@ public class ConvertUtil {
 	 */
 	public static List<Integer> stringToIntegerList(String arrStr, String delimiter) {
 		if (StringUtil.isEmpty(arrStr)) {
-			return new ArrayList<>();
+			return Collections.emptyList();
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(Integer::parseInt).collect(Collectors.toList());
+		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(
+        ValidateUtil::isIntegerNumber).map(Integer::parseInt).collect(Collectors.toList());
 	}
+
+
 
 	/**
 	 * 根据分隔符将字符串解析成LongList
@@ -393,7 +397,8 @@ public class ConvertUtil {
 			return new ArrayList<>();
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
-		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(ValiateUtil::isIntegerNumber).map(Long::parseLong).collect(Collectors.toList());
+		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(
+        ValidateUtil::isIntegerNumber).map(Long::parseLong).collect(Collectors.toList());
 	}
 
 
@@ -418,7 +423,6 @@ public class ConvertUtil {
 		if (CollectionUtil.isEmpty(collection)) {
 			return SymbolType.EMPTY;
 		}
-		StringBuilder result = new StringBuilder();
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		return collection.stream().filter(ObjectUtil::isNotEmpty).map(String::valueOf).collect(Collectors.joining(delimiter));
 	}
@@ -433,7 +437,7 @@ public class ConvertUtil {
 	 */
 	public static List<Integer> arrayToList(int... arr) {
 		if (ArrayUtil.isEmpty(arr)) {
-			return new ArrayList<Integer>();
+			return Collections.emptyList();
 		}
 		return Arrays.stream(arr).boxed().collect(Collectors.toList());
 	}
@@ -446,7 +450,7 @@ public class ConvertUtil {
 	 */
 	public static List<Long> arrayToList(long... arr) {
 		if (ArrayUtil.isEmpty(arr)) {
-			return new ArrayList<Long>();
+			return Collections.emptyList();
 		}
 		return Arrays.stream(arr).boxed().collect(Collectors.toList());
 	}
@@ -460,7 +464,7 @@ public class ConvertUtil {
 	@SafeVarargs
 	public static <T> List<T> arrayToList(T... arr) {
 		if (ArrayUtil.isEmpty(arr)) {
-			return new ArrayList<T>();
+			return Collections.emptyList();
 		}
 		return Arrays.stream(arr).filter(ObjectUtil::isNotEmpty).collect(Collectors.toList());
 	}
@@ -485,7 +489,7 @@ public class ConvertUtil {
 	 */
 	public static <T> List<Integer> objectListToIntIdList(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new ArrayList<Integer>();
+			return Collections.emptyList();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).mapToInt(obj -> {
 			try {
@@ -514,7 +518,7 @@ public class ConvertUtil {
 	 */
 	public static <T> List<Long> objectListToLongIdList(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new ArrayList<Long>();
+			return Collections.emptyList();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).mapToLong(obj -> {
 			try {
@@ -543,7 +547,7 @@ public class ConvertUtil {
 	 */
 	public static <T> List<String> objectListToStrIdList(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new ArrayList<String>();
+			return Collections.emptyList();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).map(obj -> {
 			try {
@@ -576,7 +580,7 @@ public class ConvertUtil {
 	 */
 	public static <T> Map<Integer, T> objectListToIntKeyMap(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new HashMap<Integer, T>();
+			return MapUtil.newHashMap();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).collect(
 				Collectors.toMap(obj -> {
@@ -606,7 +610,7 @@ public class ConvertUtil {
 	 */
 	public static <T> Map<Long, T> objectListToLongKeyMap(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new HashMap<Long, T>();
+			return MapUtil.newHashMap();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).collect(
 				Collectors.toMap(obj -> {
@@ -636,7 +640,7 @@ public class ConvertUtil {
 	 */
 	public static <T> Map<String, T> objectListToStrKeyMap(List<T> list, final String method) {
 		if (CollectionUtil.isEmpty(list)) {
-			return new HashMap<String, T>();
+			return MapUtil.newHashMap();
 		}
 		return list.stream().filter(ObjectUtil::isNotEmpty).collect(
 				Collectors.toMap(obj -> {

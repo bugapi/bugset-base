@@ -11,6 +11,17 @@ import java.util.Map;
  * @since 0.0.1
  */
 public class MapUtil {
+
+	/**
+	 * 初始化一个空的hashMap
+	 * @param <K> 键
+	 * @param <V> 值
+	 * @return 指定键值类型的空hashMap
+	 */
+	public static <K, V> Map<K, V> newHashMap() {
+		return new HashMap<>(0);
+	}
+
 	/**
 	 * 判断Map集合为空
 	 *

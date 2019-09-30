@@ -6,13 +6,15 @@ package org.bugapi.bugset.base.constant;
  * @author: zhangxw
  * @date: 2018/10/15
  */
-public class LogicalType {
+public enum LogicalType {
+
 	/**
-	 * 或类型
+	 * 或
 	 */
-	public static final int OR = 0;
+	OR,
+
 	/**
-	 * 且类型
+	 * 且
 	 */
-	public static final int AND = 1;
+	AND;
 }

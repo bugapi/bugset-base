@@ -8,7 +8,7 @@ import org.bugapi.bugset.base.constant.PatternType;
  * @author zhangxw
  * @since 0.0.1
  */
-public class ValiateUtil {
+public class ValidateUtil {
 
 	/**
 	 * 判断字符串是否整数
