@@ -1,36 +1,18 @@
 # bugset-base
 
 #### Description
-bugset-base是bugset的基础项目，包含常用的常量工程、自定义异常工程、工具类工程、基于java8封装的接口函数工程等
+bugset-base is a basic project of bugset, including common constants, custom exception, utils, interfaces and functions based on java8, etc.
 
 #### Software Architecture
-Software architecture description
+1. bugset-base-constant constants
+2. bugset-base-util utils
 
-#### Installation
+#### Environmental dependence
+* jdk1.8
+* maven
+  
+    > please install maven (http://maven.apache.org/download.cgi)
 
-1. xxxx
-2. xxxx
-3. xxxx
+#### Contact us
 
-#### Instructions
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Contribution
-
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
-
-
-#### Gitee Feature
-
-1. You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2. Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3. Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4. The most valuable open source project [GVP](https://gitee.com/gvp)
-5. The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6. The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+- DingDing：21971126
