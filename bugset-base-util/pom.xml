@@ -45,6 +45,12 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <!-- google的Json序列化包 -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
         <!-- Geometry 空间分析方法几何图形操作包 -->
         <dependency>
             <groupId>org.geotools</groupId>

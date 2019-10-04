@@ -9,11 +9,11 @@ package org.bugapi.bugset.base.constant;
 public enum EnvironmentEnum {
 
 	/**开发环境*/
-	DEVELOPMENT("development"),
+	DEV("dev"),
 	/** 生产环境 */
-	PRODUCTION("production"),
+	PRO("pro"),
 	/** 测试环境 */
-	TESTING("testing");
+	TEST("test");
 
 	/**
 	 * 类型

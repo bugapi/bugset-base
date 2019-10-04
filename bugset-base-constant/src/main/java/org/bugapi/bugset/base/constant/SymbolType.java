@@ -58,6 +58,12 @@ public class SymbolType {
 	 */
 	public static final String VERTICAL_VIRGULE = "|";
 
+	public static final String ARRAY_SUFFIX = "[]";
+	private static final String INTERNAL_ARRAY_PREFIX = "[";
+	private static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
+	public static final String CGLIB_CLASS_SEPARATOR = "$$";
+	public static final String CLASS_FILE_SUFFIX = ".class";
+
 	/**
 	 . period 句号
 	 , comma 逗号
