@@ -7,6 +7,7 @@ package org.bugapi.bugset.base.util.reflect;
 public class ClassLoaderUtil {
 	/**
 	 * 获取类加载器
+	 * 		按照获取当前线程上下文类加载器-->获取当前类类加载器-->获取系统启动类加载器的顺序来获取
 	 *
 	 * @return 类加载器
 	 */
@@ -23,4 +24,5 @@ public class ClassLoaderUtil {
 		}
 		return cl;
 	}
+
 }

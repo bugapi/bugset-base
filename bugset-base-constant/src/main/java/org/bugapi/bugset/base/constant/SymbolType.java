@@ -58,11 +58,48 @@ public class SymbolType {
 	 */
 	public static final String VERTICAL_VIRGULE = "|";
 
+	/**
+	 * 数组数据类型的后缀
+	 */
 	public static final String ARRAY_SUFFIX = "[]";
-	private static final String INTERNAL_ARRAY_PREFIX = "[";
-	private static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
+
+	/**
+	 * Java基本数据类型的前缀
+	 * byte[].class, char[].class, short[].class, int[].class, long[].class, boolean[].class, float[].class, double[].class
+	 * class [B	class [C      class [S       class [I     class [J      class [Z         class [F       class [D
+	 * <p>
+	 * System.out.println(byte[].class);					-- 结果：class [B
+	 * System.out.println(byte[].class.getName());			-- 结果：[B
+	 * System.out.println(byte[].class.getTypeName());		-- 结果：byte[]
+	 * System.out.println(byte[].class.getComponentType());-- 结果：byte
+	 */
+	public static final String PRIMITIVE_ARRAY_PREFIX = "[";
+
+	/**
+	 * 非Java基本数据类型的数组的数组前缀
+	 * String[].class
+	 * class [Ljava.lang.String;
+	 * <p>
+	 * System.out.println(String[].class);						-- 结果：class [Ljava.lang.String;
+	 * System.out.println(String[].class.getName());			-- 结果：[Ljava.lang.String;
+	 * System.out.println(String[].class.getTypeName());		-- 结果：java.lang.String[]
+	 * System.out.println(String[].class.getComponentType());	-- 结果：class java.lang.String
+	 */
+	public static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
+
+	/**
+	 * Cglib生成的代理类包含 $$ 符号
+	 */
 	public static final String CGLIB_CLASS_SEPARATOR = "$$";
 	public static final String CLASS_FILE_SUFFIX = ".class";
+
+	public static void main(String[] args) {
+		System.out.println(String[].class);
+		System.out.println(String[].class.getName());
+		System.out.println(String[].class.getTypeName());
+		System.out.println(String[].class.getComponentType());
+		System.out.println(byte[].class.getComponentType());
+	}
 
 	/**
 	 . period 句号

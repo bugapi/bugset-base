@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * 数字工具类【包含加、减、乘、除、以及保留几位小数等】
+ * 		https://blog.csdn.net/f641385712/article/details/86525051
  *
  * @author zhangxw
  * @since 0.0.1
