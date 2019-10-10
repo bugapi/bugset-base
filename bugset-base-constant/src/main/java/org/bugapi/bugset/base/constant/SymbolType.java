@@ -12,13 +12,24 @@ public class SymbolType {
 	 */
 	public static final String SEMICOLON = ";";
 	/**
+	 * 分号 - 中文
+	 */
+	public static final String SEMICOLON_CHINESE = "；";
+
+	/**
 	 * 空字符串
 	 */
 	public static final String EMPTY = "";
+
 	/**
 	 * 逗号
 	 */
 	public static final String COMMA = ",";
+	/**
+	 * 逗号 - 中文
+	 */
+	public static final String COMMA_CHINESE = ",";
+
 	/**
 	 * 点
 	 */
@@ -36,6 +47,10 @@ public class SymbolType {
 	 */
 	public static final String COLON = ":";
 	/**
+	 * 冒号 - 中文
+	 */
+	public static final String COLON_CHINESE = "：";
+	/**
 	 * @ 符号
 	 */
 	public static final String AT = "@";
@@ -43,6 +58,12 @@ public class SymbolType {
 	 * 斜线
 	 */
 	public static final String SLASH = "/";
+
+	/**
+	 * 反斜杠
+	 */
+	public static final String BACKSLASH = "\\";
+
 	/**
 	 * 美元符号
 	 */
@@ -51,7 +72,102 @@ public class SymbolType {
 	/**
 	 * 空格符
 	 */
-	public static final String NBSP = " ";
+	public static final String SPACE = " ";
+
+	/**
+	 * 制表符，为了在不使用表格的情况下，上下对齐，table的意思。
+	 */
+	public static final String TAB = "\t";
+
+	/**
+	 * 回车符，返回到这一行的开头，return的意思。
+	 */
+	public static final String CR = "\r";
+
+	/**
+	 * 换行符，到下一行的同一位置，纵坐标相同，new line的意思。
+	 */
+	public static final String LF = "\n";
+
+	/**
+	 * Enter 相当于\n\r，所以Enter的标识为 往下，再往前。当然，\n\r等价于\r\n。
+	 */
+	public static final String CRLF = "\r\n";
+
+	/**
+	 * 引号
+	 */
+	public static final String QUOTES = "\"";
+
+	/**
+	 * 引号 - 中文 - 左
+	 */
+	public static final String QUOTES_CHINESE_LEFT = "“";
+
+	/**
+	 * 引号 - 中文 - 右
+	 */
+	public static final String QUOTES_CHINESE_RIGHT = "”";
+
+	/**
+	 * 问号
+	 */
+	public static final String QUESTION_MARK = "?";
+
+	/**
+	 * 问号 - 中文
+	 */
+	public static final String QUESTION_MARK_CHINESE = "？";
+
+	/**
+	 * 尖括号 - 左
+	 */
+	public static final String ANGLE_BRACKETS_LEFT = "<";
+
+	/**
+	 * 尖括号 - 中文 - 左
+	 */
+	public static final String ANGLE_BRACKETS_CHINESE_LEFT = "《";
+
+	/**
+	 * 尖括号 - 右
+	 */
+	public static final String ANGLE_BRACKETS_RIGHT = ">";
+
+	/**
+	 * 尖括号 - 中文 - 右
+	 */
+	public static final String ANGLE_BRACKETS_CHINESE_RIGHT = "》";
+
+	/**
+	 * 小括号 - 左
+	 */
+	public static final String PARENTHESES_LEFT = "(";
+
+	/**
+	 * 小括号 - 中文 - 左
+	 */
+	public static final String PARENTHESES_CHINESE_LEFT = "（";
+
+	/**
+	 * 小括号 - 右
+	 */
+	public static final String PARENTHESES_RIGHT = ")";
+
+	/**
+	 * 小括号 - 中文 - 右
+	 */
+	public static final String PARENTHESES_CHINESE_RIGHT = "）";
+
+	/**
+	 * 大括号 - 左
+	 */
+	public static final String CURLY_BRACES_LEFT = "{";
+
+	/**
+	 * 大括号 - 右
+	 */
+	public static final String CURLY_BRACES_RIGHT = "}";
 
 	/**
 	 * 竖线
@@ -91,7 +207,17 @@ public class SymbolType {
 	 * Cglib生成的代理类包含 $$ 符号
 	 */
 	public static final String CGLIB_CLASS_SEPARATOR = "$$";
-	public static final String CLASS_FILE_SUFFIX = ".class";
+
+	/**
+	 * Jar路径以及内部文件路径的分界符: "!/"
+	 */
+	public static final String JAR_URL_SEPARATOR = "!/";
+
+	/**
+	 * WAR路径及内部文件路径分界符
+	 */
+	public static final String WAR_URL_SEPARATOR = "*/";
+
 
 	public static void main(String[] args) {
 		System.out.println(String[].class);
@@ -100,86 +226,4 @@ public class SymbolType {
 		System.out.println(String[].class.getComponentType());
 		System.out.println(byte[].class.getComponentType());
 	}
-
-	/**
-	 . period 句号
-	 , comma 逗号
-	 ; semicolon 分号
-	 : colon 冒号
-	 () semicolon 圆括号
-	 [] bracket 方括号
-	 {} brace 花括号
-	 # sharp 井号
-	 '" quotes 引号
-	 ' prime 撇号
-	 ^ circumflex
-
-
-	 . period 句号
-	 , comma 逗号
-	 : colon 冒号
-	 ; semicolon 分号
-	 ! exclamation 惊叹号
-	 ? question mark 问号
-	 - hyphen 连字符
-	 ' apostrophe 省略号；所有格符号
-	 - dash 破折号
-	 ‘’ single quotation marks 单引号
-	 “” double quotation marks 双引号
-	 () parentheses 圆括号
-	 [] square brackets 方括号
-	 《》 French quotes 法文引号；书名号
-	 ... ellipsis 省略号
-	 ¨ tandem colon 双点号
-	 " ditto 同上
-	 ‖ parallel 双线号
-	 / virgule 斜线号
-	 & ampersand = and
-	 ~ swung dash 代字号
-	 § section; division 分节号
-	 → arrow 箭号；参见号
-	 + plus 加号；正号
-	 - minus 减号；负号
-	 ± plus or minus 正负号
-	 × is multiplied by 乘号
-	 ÷ is divided by 除号
-	 = is equal to 等于号
-	 ≠ is not equal to 不等于号
-	 ≡ is equivalent to 全等于号
-	 ≌ is equal to or approximately equal to
-	 等于或约等于号
-	 ≈ is approximately equal to
-	 约等于号
-	 < is less than 小于号
-	 > is more than 大于号
-	 ≮ is not less than 不小于号
-	 ≯ is not more than 不大于号
-	 ≤ is less than or equal to 小于或等于号
-	 ≥ is more than or equal to 大于或等于号
-	 % per cent 百分之…
-	 ‰ per mill 千分之…
-	 ∞ infinity 无限大号
-	 ∝ varies as 与…成比例
-	 √ (square) root 平方根
-	 ∵ since; because 因为
-	 ∴ hence 所以
-	 ∷ equals, as (proportion) 等于，成比例
-	 ∠ angle 角
-	 ⌒ semicircle 半圆
-	 ⊙ circle 圆
-	 ○ circumference 圆周
-	 π pi 圆周率
-	 △ triangle 三角形
-	 ⊥ perpendicular to 垂直于
-	 ∪ union of 并，合集
-	 ∩ intersection of 交，通集
-	 ∫ the integral of …的积分
-	 ∑ (sigma) summation of 总和
-	 ° degree 度
-	 ' minute 分
-	 " second 秒
-	 # number …号
-	 ℃ Celsius system 摄氏度
-	 @ at 单价
-	 */
 }

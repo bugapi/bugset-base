@@ -3,12 +3,12 @@ package org.bugapi.bugset.base.constant;
 import java.lang.reflect.Modifier;
 
 /**
- * 修饰符常量类
+ * 修饰符枚举
  *
  * @author zhangxw
  * @since 0.0.1
  */
-public enum ModifierType {
+public enum ModifierEnum {
 	/**
 	 * public修饰符，所有类都能访问
 	 */
@@ -65,22 +65,25 @@ public enum ModifierType {
 	STRICT(Modifier.STRICT);
 
 	/**
-	 * 修饰符枚举对应的int修饰符值
+	 * 类型
 	 */
-	private int modifier;
+	private int type;
 
 	/**
-	 * @param modifier 修饰符int表示，见{@link Modifier}
+	 * 构造器
+	 *
+	 * @param type 修饰符int表示，见{@link Modifier}
 	 */
-	private ModifierType(int modifier) {
-		this.modifier = modifier;
+	private ModifierEnum(int type) {
+		this.type = type;
 	}
 
 	/**
 	 * 获取修饰符枚举对应的int修饰符值，值见{@link Modifier}
+	 *
 	 * @return 修饰符枚举对应的int修饰符值
 	 */
-	public int getModifier() {
-		return this.modifier;
+	public int getType() {
+		return type;
 	}
 }

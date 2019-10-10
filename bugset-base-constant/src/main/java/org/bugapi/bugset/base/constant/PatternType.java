@@ -19,4 +19,9 @@ public class PatternType {
 	 */
 	public static final Pattern NUMBER_LETTER_PATTERN = Pattern.compile("^[0-9]*[a-zA-Z]*+$");
 
+	/**
+	 * Windows下文件名中的无效字符
+	 */
+	public static Pattern FILE_NAME_INVALID_PATTERN_WIN = Pattern.compile("[\\\\/:*?\"<>|]");
+
 }

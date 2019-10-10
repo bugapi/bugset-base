@@ -15,6 +15,38 @@ import java.lang.management.ManagementFactory;
 public class ServerUtil {
 
 	/**
+	 * WINDOWS系统
+	 */
+	public static final String WINDOWS = "windows";
+	/**
+	 * Linux系统
+	 */
+	public static final String LINUX = "linux";
+
+	/**
+	 * 操作系统属性名称
+	 */
+	private static final String OS_NAME = "os.name";
+
+	/**
+	 * 判断是否是windows操作系统
+	 *
+	 * @return boolean 【true：是】
+	 */
+	public static boolean isWindowsOS() {
+		return System.getProperty(OS_NAME).toLowerCase().contains(WINDOWS);
+	}
+
+	/**
+	 * 判断是否是Linux操作系统
+	 *
+	 * @return boolean 【true：是】
+	 */
+	public static boolean isLinuxOS() {
+		return System.getProperty(OS_NAME).toLowerCase().contains(LINUX);
+	}
+
+	/**
 	 * 获取服务器的硬盘使用情况
 	 *
 	 * @return String 硬盘的使用信息

@@ -21,6 +21,7 @@ public enum LogicalEnum {
 	 * 类型
 	 */
 	private String type;
+
 	LogicalEnum(String type) {
 		this.type = type;
 	}

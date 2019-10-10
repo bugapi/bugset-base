@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @since 0.0.1
  */
 public class StringUtil {
-
+	public static final int INDEX_NOT_FOUND = -1;
 	/**
 	 * 去除左右两边的字符串
 	 */
@@ -58,6 +58,16 @@ public class StringUtil {
 	 * @return boolean 【true：字符串为null、字符串由空白字符组成】
 	 */
 	public static boolean isEmpty(CharSequence str) {
+		return null == str || trim(str, TRIM_LEFT_RIGHT).length() == 0;
+	}
+
+	/**
+	 * 判断字符串为空
+	 *
+	 * @param str 字符串
+	 * @return boolean 【true：字符串为null、字符串由空白字符组成】
+	 */
+	public static boolean isEmpty(String str) {
 		return null == str || trim(str, TRIM_LEFT_RIGHT).length() == 0;
 	}
 
@@ -189,7 +199,7 @@ public class StringUtil {
 		if (isNotEmpty(sortField)) {
 			orderFiled.append(sortField);
 			if (isNotEmpty(order)) {
-				orderFiled.append(SymbolType.NBSP).append(order);
+				orderFiled.append(SymbolType.SPACE).append(order);
 			}
 		}
 		return orderFiled.toString();
@@ -213,7 +223,7 @@ public class StringUtil {
 			for (int i = 0; i < sortFieldLength; i++){
 				orderFiled.append(sortFields[i]);
 				if(ordersLength > 0 && i < ordersLength){
-					orderFiled.append(SymbolType.NBSP).append(orders[i]);
+					orderFiled.append(SymbolType.SPACE).append(orders[i]);
 				}
 				if(i + 1 < sortFieldLength){
 					orderFiled.append(SymbolType.COMMA);
@@ -248,8 +258,52 @@ public class StringUtil {
 		return Arrays.stream(dataStr.split(delimiter)).filter(StringUtil::isNotEmpty).distinct().collect(Collectors.joining(delimiter));
 	}
 
+
+	/**
+	 * 截取分隔字符串之前的字符串，不包括分隔字符串<br>
+	 * 如果给定的字符串为空串（null或""）或者分隔字符串为null，返回原字符串<br>
+	 * 如果分隔字符串为空串""，则返回空串，如果分隔字符串未找到，返回原字符串，举例如下：
+	 *
+	 * <pre>
+	 * StrUtil.subBefore(null, *)      = null
+	 * StrUtil.subBefore("", *)        = ""
+	 * StrUtil.subBefore("abc", "a")   = ""
+	 * StrUtil.subBefore("abcba", "b") = "a"
+	 * StrUtil.subBefore("abc", "c")   = "ab"
+	 * StrUtil.subBefore("abc", "d")   = "abc"
+	 * StrUtil.subBefore("abc", "")    = ""
+	 * StrUtil.subBefore("abc", null)  = "abc"
+	 * </pre>
+	 *
+	 * @param string 被查找的字符串
+	 * @param separator 分隔字符串（不包括）
+	 * @param isLastSeparator 是否查找最后一个分隔字符串（多次出现分隔字符串时选取最后一个），true为选取最后一个
+	 * @return 切割后的字符串
+	 * @since 3.1.1
+	 */
+	public static String subBefore(CharSequence string, CharSequence separator, boolean isLastSeparator) {
+		if (isEmpty(string) || separator == null) {
+			return null == string ? null : string.toString();
+		}
+
+		final String str = string.toString();
+		final String sep = separator.toString();
+		if (sep.isEmpty()) {
+			return SymbolType.EMPTY;
+		}
+		final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
+		if (INDEX_NOT_FOUND == pos) {
+			return str;
+		}
+		if (0 == pos) {
+			return SymbolType.EMPTY;
+		}
+		return str.substring(0, pos);
+	}
+
 	public static void main(String[] args) {
 		System.out.println(removeRepeatData("aa,cc,aa,1,11,,1,33", ""));
+		System.out.println(removePrefix("setName","set"));
 	}
 
 	/**
@@ -296,6 +350,43 @@ public class StringUtil {
 			return str.toString().substring(start, end);
 		}
 		return str.toString();
+	}
+
+	/**
+	 * 如果字符串不是以指定后缀结尾，就将后缀拼接到字符串后边
+	 *
+	 * @param str 字符串
+	 * @param suffix 后缀
+	 * @return 字符串
+	 */
+	public static String addSuffixIfNot(String str, String suffix) {
+		if (isEmpty(str) || isEmpty(suffix)) {
+			return str;
+		}
+
+		if (!str.endsWith(suffix)) {
+			return str.concat(suffix);
+		}
+		return str;
+	}
+
+	/**
+	 * 去掉指定前缀
+	 *
+	 * @param str 字符串
+	 * @param prefix 前缀
+	 * @return 切掉后的字符串，若前缀不是 preffix， 返回原字符串
+	 */
+	public static String removePrefix(String str, String prefix) {
+		if (isEmpty(str) || isEmpty(prefix)) {
+			return str;
+		}
+
+		final String str2 = str.toString();
+		if (str.startsWith(prefix.toString())) {
+			return str.substring(prefix.length());// 截取后半段
+		}
+		return str;
 	}
 
 	/**

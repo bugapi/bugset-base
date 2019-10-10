@@ -27,4 +27,14 @@ public class MethodType {
 	 */
 	public static final String GET_ID = "getId";
 
+	/**
+	 * getter方法的前缀
+	 */
+	public static final String GETTER_PREFIX = "get";
+
+	/**
+	 * setter方法的前缀
+	 */
+	public static final String SETTER_PREFIX = "set";
+
 }

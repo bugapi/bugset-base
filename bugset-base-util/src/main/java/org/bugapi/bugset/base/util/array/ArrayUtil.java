@@ -2,6 +2,7 @@ package org.bugapi.bugset.base.util.array;
 
 import org.bugapi.bugset.base.util.string.StringUtil;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Arrays;
  * @since 0.0.1
  */
 public class ArrayUtil {
+	public static final int EMPTY_ARRAY_LENGTH = 0;
 	/**
 	 * 判断一个对象是否是数组对象，如果为null返回false
 	 *
@@ -57,6 +59,7 @@ public class ArrayUtil {
 	public static boolean isEmpty(int... array) {
 		return array == null || array.length == 0;
 	}
+
 
 	/**
 	 * 数组是否为空
@@ -148,8 +151,32 @@ public class ArrayUtil {
 		return Arrays.stream(array).filter(StringUtil::isNotEmpty).distinct().toArray(String[]::new);
 	}
 
+	/**
+	 * 新建一个空数组
+	 *
+	 * @param <T> 数组元素类型
+	 * @param componentType 元素类型
+	 * @param newSize 大小
+	 * @return 空数组
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] newArray(Class<?> componentType, int newSize) {
+		return (T[]) Array.newInstance(componentType, newSize);
+	}
+
+	/**
+	 * 根据元素类型获取对应的数组类型
+	 *
+	 * @param componentType 元素类型
+	 * @return 空数组
+	 */
+	public static Class<?> getArrayClass(Class<?> componentType) {
+		return Array.newInstance(componentType, EMPTY_ARRAY_LENGTH).getClass();
+	}
+
 	public static void main(String[] args) {
 		System.out.println(removeRepeatData(new int[]{1,2,1,2}).length);
 		System.out.println(removeRepeatData(new String[]{"1","23","1"}).length);
+		System.out.println(getArrayClass(int.class));
 	}
 }
