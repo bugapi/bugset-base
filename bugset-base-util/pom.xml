@@ -22,11 +22,17 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>-->
 
-        <!-- 汉语拼音包 -->
-        <dependency>
+        <!-- 汉语拼音包 不支持生僻字 -->
+        <!--<dependency>
             <groupId>com.belerweb</groupId>
             <artifactId>pinyin4j</artifactId>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.github.stuxuhai</groupId>
+            <artifactId>jpinyin</artifactId>
         </dependency>
+
         <!-- HttpServelt的包 -->
         <dependency>
             <groupId>javax.servlet</groupId>
