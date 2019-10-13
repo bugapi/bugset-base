@@ -19,7 +19,7 @@ public class ResourceUtil {
 	/**
 	 * 获得资源相对路径对应的URL
 	 *
-	 * @param resource 资源相对路径
+	 * @param resource  资源相对路径
 	 * @param baseClass 基准Class，获得的相对路径相对于此Class所在路径，如果为{@code null}则相对ClassPath
 	 * @return {@link URL}
 	 */
@@ -42,7 +42,7 @@ public class ResourceUtil {
 	 */
 	public static List<URL> getResources(String resource) throws IOException {
 		List<URL> urlList = new ArrayList<>();
-		if(StringUtil.isEmpty(resource)){
+		if (StringUtil.isEmpty(resource)) {
 			return urlList;
 		}
 		Enumeration<URL> enumration = ClassLoaderUtil.getDefaultClassLoader().getResources(resource);

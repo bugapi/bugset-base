@@ -35,7 +35,7 @@ public class StringUtil {
 	 * @param separator 字符串分隔符
 	 * @return String 分隔符
 	 */
-	public static String getDefaultStrSeparator(String separator){
+	public static String getDefaultStrSeparator(String separator) {
 		if (isEmpty(separator)) {
 			separator = SymbolType.COMMA;
 		}
@@ -47,7 +47,7 @@ public class StringUtil {
 	 *
 	 * @return String 文件分隔符
 	 */
-	public static String getDefaultPathSeparator(){
+	public static String getDefaultPathSeparator() {
 		return File.separator;
 	}
 
@@ -191,7 +191,7 @@ public class StringUtil {
 	 * 为排序的查询拼接排序字段和排序类型
 	 *
 	 * @param sortField 参加排序的字段
-	 * @param order 排序的类型
+	 * @param order     排序的类型
 	 * @return String 拼接后的字符串
 	 */
 	public static String joinSortFieldOrder(String sortField, String order) {
@@ -209,7 +209,7 @@ public class StringUtil {
 	 * 为多字段排序的查询拼接排序字段和排序类型
 	 *
 	 * @param sortFields 参加排序的字段数组
-	 * @param orders 排序的类型数组
+	 * @param orders     排序的类型数组
 	 * @return String 为多字段排序的查询拼接排序字段和排序类型
 	 */
 	public static String joinSortFieldOrder(String[] sortFields, String[] orders) {
@@ -217,15 +217,15 @@ public class StringUtil {
 		if (null != sortFields && sortFields.length > 0) {
 			int sortFieldLength = sortFields.length;
 			int ordersLength = 0;
-			if(null != orders && orders.length > 0){
+			if (null != orders && orders.length > 0) {
 				ordersLength = orders.length;
 			}
-			for (int i = 0; i < sortFieldLength; i++){
+			for (int i = 0; i < sortFieldLength; i++) {
 				orderFiled.append(sortFields[i]);
-				if(ordersLength > 0 && i < ordersLength){
+				if (ordersLength > 0 && i < ordersLength) {
 					orderFiled.append(SymbolType.SPACE).append(orders[i]);
 				}
-				if(i + 1 < sortFieldLength){
+				if (i + 1 < sortFieldLength) {
 					orderFiled.append(SymbolType.COMMA);
 				}
 			}
@@ -246,7 +246,7 @@ public class StringUtil {
 	/**
 	 * 将用指定分隔符拼接成的字符串去重
 	 *
-	 * @param dataStr 数据字符串
+	 * @param dataStr   数据字符串
 	 * @param delimiter 数据字符串中的拼接符
 	 * @return 去重后拼接的字符串
 	 */
@@ -275,8 +275,8 @@ public class StringUtil {
 	 * StrUtil.subBefore("abc", null)  = "abc"
 	 * </pre>
 	 *
-	 * @param string 被查找的字符串
-	 * @param separator 分隔字符串（不包括）
+	 * @param string          被查找的字符串
+	 * @param separator       分隔字符串（不包括）
 	 * @param isLastSeparator 是否查找最后一个分隔字符串（多次出现分隔字符串时选取最后一个），true为选取最后一个
 	 * @return 切割后的字符串
 	 * @since 3.1.1
@@ -303,7 +303,7 @@ public class StringUtil {
 
 	public static void main(String[] args) {
 		System.out.println(removeRepeatData("aa,cc,aa,1,11,,1,33", ""));
-		System.out.println(removePrefix("setName","set"));
+		System.out.println(removePrefix("setName", "set"));
 	}
 
 	/**
@@ -313,7 +313,7 @@ public class StringUtil {
 	 * @param str2 字符串2
 	 * @return String
 	 */
-	public static String twoStringConcat(String str1, String str2){
+	public static String twoStringConcat(String str1, String str2) {
 		return String.format("%s_%s", str1, str2);
 	}
 
@@ -355,7 +355,7 @@ public class StringUtil {
 	/**
 	 * 如果字符串不是以指定后缀结尾，就将后缀拼接到字符串后边
 	 *
-	 * @param str 字符串
+	 * @param str    字符串
 	 * @param suffix 后缀
 	 * @return 字符串
 	 */
@@ -373,7 +373,7 @@ public class StringUtil {
 	/**
 	 * 去掉指定前缀
 	 *
-	 * @param str 字符串
+	 * @param str    字符串
 	 * @param prefix 前缀
 	 * @return 切掉后的字符串，若前缀不是 preffix， 返回原字符串
 	 */

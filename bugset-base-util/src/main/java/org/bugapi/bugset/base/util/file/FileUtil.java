@@ -22,27 +22,35 @@ import static org.bugapi.bugset.base.util.date.DateUtil.getSpecificTime;
 
 
 /**
- * @ClassName: FileUtil
- * @Description: 文件处理工具类
- * @author: gust
- * @date: 2018/11/1
+ * 文件处理工具类
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public final class FileUtil {
-	/** 文件分隔符 */
+	/**
+	 * 文件分隔符
+	 */
 	public static final String FILE_SEPARATOR = File.separator;
 
-	/** Windows下的文件路径：E:\thirdPartyCode\gridcloud\gridcloud-component的分隔符为：\ */
+	/**
+	 * Windows下的文件路径：E:\thirdPartyCode\gridcloud\gridcloud-component的分隔符为：\
+	 */
 	private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
 
-	/** 默认的Path数组的长度 */
+	/**
+	 * 默认的Path数组的长度
+	 */
 	public static final int DEFAULT_PATH_ARRAY_LENGTH = 2;
 
-	private FileUtil(){}
+	private FileUtil() {
+	}
 
 	/**
 	 * 项目编译后的classes的目录
-	 * @Title: getClassPath
+	 *
 	 * @return String 编译后Classes的目录
+	 * @Title: getClassPath
 	 */
 	public static String getClassPath() {
 		if (ServerUtil.isWindowsOS()) {
@@ -59,12 +67,13 @@ public final class FileUtil {
 
 	/**
 	 * 返回带.的文件后缀【.jpg】
-	 * @Title: getFileSuffixWithDot
+	 *
 	 * @param uploadFileName 文件名【a.jpg 或者 /b/a.jpg 或者 E:\b\a.jpg】
 	 * @return String 带.的文件后缀：.jpg
+	 * @Title: getFileSuffixWithDot
 	 */
 	public static String getFileSuffixWithDot(String uploadFileName) {
-		if(checkFileNameWithOutDot(uploadFileName)){
+		if (checkFileNameWithOutDot(uploadFileName)) {
 			return "";
 		}
 		return uploadFileName.substring(uploadFileName.lastIndexOf(SymbolType.DOT));
@@ -72,12 +81,13 @@ public final class FileUtil {
 
 	/**
 	 * 返回带.的文件后缀【.jpg】
-	 * @Title: getFileSuffixWithDot
+	 *
 	 * @param uploadFileName 文件名【a.jpg 或者 /b/a.jpg 或者 E:\b\a.jpg】
 	 * @return String 带.的文件后缀：.jpg
+	 * @Title: getFileSuffixWithDot
 	 */
 	public static String getLowerCaseFileSuffixWithDot(String uploadFileName) {
-		if(checkFileNameWithOutDot(uploadFileName)){
+		if (checkFileNameWithOutDot(uploadFileName)) {
 			return "";
 		}
 		return uploadFileName.substring(uploadFileName.lastIndexOf(SymbolType.DOT)).toLowerCase();
@@ -85,22 +95,24 @@ public final class FileUtil {
 
 	/**
 	 * 判断文件名中是否有.和后缀
-	 * @Title: checkFileNameWithOutDot
+	 *
 	 * @param filename 文件名
 	 * @return boolean 【true：文件名中没有.】
+	 * @Title: checkFileNameWithOutDot
 	 */
-	private static boolean checkFileNameWithOutDot(String filename){
+	private static boolean checkFileNameWithOutDot(String filename) {
 		return StringUtil.isEmpty(filename) || filename.lastIndexOf(SymbolType.DOT) == -1;
 	}
 
 	/**
 	 * 获取文件路径以及文件名【不包含.和后缀】
-	 * @Title: getFilePrefix
+	 *
 	 * @param fileName 文件名
 	 * @return String 文件路径以及文件名【不包含.和后缀】
+	 * @Title: getFilePrefix
 	 */
 	public static String getFilePrefix(String fileName) {
-		if(checkFileNameWithOutDot(fileName)){
+		if (checkFileNameWithOutDot(fileName)) {
 			return fileName;
 		}
 		return fileName.substring(0, fileName.indexOf(SymbolType.DOT));
@@ -108,12 +120,13 @@ public final class FileUtil {
 
 	/**
 	 * 根据临时文件的文件名，创建的相对路径，包含文件名【格式：xls\2019\2019\5\11\1557568401423.xls 的相对路径】
-	 * @Title: generateAbsoluteDirectory
+	 *
 	 * @param fileTmpPath 文件所在的临时目录【包含文件名的部分】
+	 * @Title: generateAbsoluteDirectory
 	 * @return: String 文件的绝对目录
 	 */
 	public static String generateDateStampRelativePath(String fileTmpPath) {
-		if(StringUtil.isEmpty(fileTmpPath) || fileTmpPath.lastIndexOf(SymbolType.DOT) == -1){
+		if (StringUtil.isEmpty(fileTmpPath) || fileTmpPath.lastIndexOf(SymbolType.DOT) == -1) {
 			return "";
 		}
 		LocalDateTime now = LocalDateTime.now();
@@ -124,12 +137,13 @@ public final class FileUtil {
 
 	/**
 	 * 根据临时文件的文件名，创建的相对路径【格式：xls\2019\2019\5\11 的相对路径】
-	 * @Title: generateAbsoluteDirectory
+	 *
 	 * @param fileTmpPath 文件所在的临时目录【包含文件名的部分】
+	 * @Title: generateAbsoluteDirectory
 	 * @return: String 文件的绝对目录
 	 */
 	public static String generateDateStampRelativeDirectory(String fileTmpPath) {
-		if(StringUtil.isEmpty(fileTmpPath) || fileTmpPath.lastIndexOf(SymbolType.DOT) == -1){
+		if (StringUtil.isEmpty(fileTmpPath) || fileTmpPath.lastIndexOf(SymbolType.DOT) == -1) {
 			return "";
 		}
 		LocalDateTime now = LocalDateTime.now();
@@ -142,18 +156,19 @@ public final class FileUtil {
 
 	/**
 	 * 生成目标目录，并从源文件的路径中拷贝文件到目标目录
-	 * @Title: generateTargetDirectoryAndCopyFile
+	 *
 	 * @param uploadRootPrefix 文件绝对路径前缀
-	 * @param filePathPrefix 文件自定义相对路径前缀
-	 * @param sourceFile 源文件
+	 * @param filePathPrefix   文件自定义相对路径前缀
+	 * @param sourceFile       源文件
 	 * @return Path 【目标文件相对路径】
+	 * @Title: generateTargetDirectoryAndCopyFile
 	 */
 	public static Path generateTargetDirectoryAndCopyFile(File sourceFile, String fileName, String uploadRootPrefix,
-														  String filePathPrefix){
+														  String filePathPrefix) {
 
 		Path[] paths = createTargetFilePaths(uploadRootPrefix, filePathPrefix, fileName);
 
-		if(paths.length != DEFAULT_PATH_ARRAY_LENGTH){
+		if (paths.length != DEFAULT_PATH_ARRAY_LENGTH) {
 			throw new RuntimeException("生成目标路径和文件失败");
 		}
 
@@ -171,17 +186,18 @@ public final class FileUtil {
 
 	/**
 	 * 生成目标目录，并从源文件的路径中拷贝文件到目标目录
-	 * @Title: generateTargetDirectoryAndCopyFile
+	 *
 	 * @param uploadRootPrefix 文件绝对路径前缀
-	 * @param filePathPrefix 文件自定义相对路径前缀
-	 * @param sourceFilePath 源文件路径
+	 * @param filePathPrefix   文件自定义相对路径前缀
+	 * @param sourceFilePath   源文件路径
 	 * @return Path[] 【path[0]：目标文件相对路径()、path[1]：绝对路径()】
+	 * @Title: generateTargetDirectoryAndCopyFile
 	 */
 	public static Path[] generateTargetDirectoryAndCopyFile(String uploadRootPrefix, String filePathPrefix,
-															String sourceFilePath){
+															String sourceFilePath) {
 		Path[] paths = createTargetFilePaths(uploadRootPrefix, filePathPrefix, sourceFilePath);
 
-		if(paths.length != DEFAULT_PATH_ARRAY_LENGTH){
+		if (paths.length != DEFAULT_PATH_ARRAY_LENGTH) {
 			throw new RuntimeException("生成目标路径和文件失败");
 		}
 
@@ -199,20 +215,21 @@ public final class FileUtil {
 
 	/**
 	 * 根据源文件路径，创建目标文件路径，并返回目标文件的相对Path和绝对Path
-	 * @Title: createTargetFilePaths
+	 *
 	 * @param uploadRootPrefix 文件绝对路径前缀
-	 * @param filePathPrefix 文件自定义相对路径前缀
-	 * @param sourceFilePath 源文件路径
+	 * @param filePathPrefix   文件自定义相对路径前缀
+	 * @param sourceFilePath   源文件路径
 	 * @return Path[] 【path[0]：目标文件相对路径()、path[1]：绝对路径()】
+	 * @Title: createTargetFilePaths
 	 */
 	public static Path[] createTargetFilePaths(String uploadRootPrefix, String filePathPrefix,
-									 String sourceFilePath) {
+											   String sourceFilePath) {
 		// 新的文件相对目录
 		String newFileRelativeDirectory = generateDateStampRelativeDirectory(sourceFilePath);
 		// 新的文件名
 		String newFileName = generateTimeStampFileName(sourceFilePath);
 
-		if(StringUtil.isEmpty(filePathPrefix)){
+		if (StringUtil.isEmpty(filePathPrefix)) {
 			filePathPrefix = "";
 		}
 
@@ -222,7 +239,7 @@ public final class FileUtil {
 		Path newFileAbsoluteDirectory = Paths.get(uploadRootPrefix, filePathPrefix, newFileRelativeDirectory);
 
 		// 目录不存在的时候，创建目录
-		if(!Files.exists(newFileAbsoluteDirectory)){
+		if (!Files.exists(newFileAbsoluteDirectory)) {
 			try {
 				Files.createDirectories(newFileAbsoluteDirectory);
 			} catch (IOException e) {
@@ -237,8 +254,9 @@ public final class FileUtil {
 
 	/**
 	 * 根据目标文件名或路径生成新文件名
-	 * @Title: generateFileName
+	 *
 	 * @param nameOrPath 文件名或文件路径
+	 * @Title: generateFileName
 	 * @return: String 新文件名（时分秒毫秒.原文件扩展）
 	 */
 	public static String generateTimeStampFileName(String nameOrPath) {
@@ -249,19 +267,21 @@ public final class FileUtil {
 
 	/**
 	 * 根据目标文件名或路径生成新文件名【UUID.原文件扩展】
-	 * @Title: generateUuidFileName
+	 *
 	 * @param nameOrPath 文件名或文件路径
 	 * @return String 新文件名【UUID.原文件扩展】
+	 * @Title: generateUuidFileName
 	 */
-	public static String generateUuidFileName(String nameOrPath){
+	public static String generateUuidFileName(String nameOrPath) {
 		return UuidUtil.getUuid() + getFileSuffixWithDot(nameOrPath);
 	}
 
 	/**
 	 * 替换windows下的文件分隔符【将文件路径中的 \ 转换成 /】
-	 * @Title: replaceWindowsSeparator
+	 *
 	 * @param path 文件路径【uploadFile\issue\txt\2014\7\15\1739586110.swf】
 	 * @return String 替换后的文件路径【uploadFile/issue/txt/2014/7/15/1739586110.swf】
+	 * @Title: replaceWindowsSeparator
 	 */
 	public static String replaceWindowsSeparator(String path) {
 		if (StringUtil.isEmpty(path) || !path.contains(WINDOWS_DIRECTORY_SEPARATOR)) {
@@ -272,9 +292,10 @@ public final class FileUtil {
 
 	/**
 	 * 打开文件
-	 * @Title: FileInputStream
+	 *
 	 * @param filePath 文件路径
 	 * @return FileInputStream 文件输入流
+	 * @Title: FileInputStream
 	 */
 	public static FileInputStream openFile(String filePath) throws FileNotFoundException {
 		return new FileInputStream(filePath);
@@ -282,17 +303,18 @@ public final class FileUtil {
 
 	/**
 	 * 上传文件的校验【文件是否存在验证、文件的类型是否是允许上传的类型、是否是正确格式的文件类型】
-	 * @Title: upLoadFileVerification
+	 *
 	 * @param upLoadFile 上传的文件
 	 * @return boolean
+	 * @Title: upLoadFileVerification
 	 */
-	public static boolean upLoadFileVerification(File upLoadFile){
+	public static boolean upLoadFileVerification(File upLoadFile) {
 		if (null == upLoadFile || !upLoadFile.exists()) {
 			return false;
 		}
 		// 判断文件名是否是允许上传的类型
 		boolean flag = FileTypeUtil.isAllowUploadFileType(upLoadFile.getName());
-		if(!flag){
+		if (!flag) {
 			return false;
 		}
 		flag = FileTypeUtil.isRealFieFormat(upLoadFile);

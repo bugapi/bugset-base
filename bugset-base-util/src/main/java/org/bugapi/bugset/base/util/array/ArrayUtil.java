@@ -13,6 +13,7 @@ import java.util.Arrays;
  */
 public class ArrayUtil {
 	public static final int EMPTY_ARRAY_LENGTH = 0;
+
 	/**
 	 * 判断一个对象是否是数组对象，如果为null返回false
 	 *
@@ -154,9 +155,9 @@ public class ArrayUtil {
 	/**
 	 * 新建一个空数组
 	 *
-	 * @param <T> 数组元素类型
+	 * @param <T>           数组元素类型
 	 * @param componentType 元素类型
-	 * @param newSize 大小
+	 * @param newSize       大小
 	 * @return 空数组
 	 */
 	@SuppressWarnings("unchecked")
@@ -175,8 +176,8 @@ public class ArrayUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(removeRepeatData(new int[]{1,2,1,2}).length);
-		System.out.println(removeRepeatData(new String[]{"1","23","1"}).length);
+		System.out.println(removeRepeatData(new int[]{1, 2, 1, 2}).length);
+		System.out.println(removeRepeatData(new String[]{"1", "23", "1"}).length);
 		System.out.println(getArrayClass(int.class));
 	}
 }

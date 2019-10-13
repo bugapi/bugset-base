@@ -14,6 +14,7 @@ public class MapUtil {
 
 	/**
 	 * 初始化一个空的hashMap
+	 *
 	 * @param <K> 键
 	 * @param <V> 值
 	 * @return 指定键值类型的空hashMap
@@ -28,7 +29,7 @@ public class MapUtil {
 	 * @param map map对象
 	 * @return boolean 【true：空】
 	 */
-	public static <K, V> boolean isEmpty(Map<K, V> map){
+	public static <K, V> boolean isEmpty(Map<K, V> map) {
 		return null == map || map.size() == 0;
 	}
 
@@ -38,7 +39,7 @@ public class MapUtil {
 	 * @param map map对象
 	 * @return boolean 【true：不为空】
 	 */
-	public static <K, V> boolean isNotEmpty(Map<K, V> map){
+	public static <K, V> boolean isNotEmpty(Map<K, V> map) {
 		return null != map && map.size() >= 1;
 	}
 
@@ -49,7 +50,7 @@ public class MapUtil {
 	 * a: 1<br>
 	 * c: 3<br>
 	 *
-	 * @param <T> 集合元素类型
+	 * @param <T>      集合元素类型
 	 * @param iterable {@link Iterable}，如果为null返回一个空的Map
 	 * @return Map<T, Integer> map对象
 	 */
@@ -64,8 +65,7 @@ public class MapUtil {
 	 * a: 1<br>
 	 * c: 3<br>
 	 *
-	 *
-	 * @param <T> 集合元素类型
+	 * @param <T>      集合元素类型
 	 * @param iterator {@link Iterator}，如果为null返回一个空的Map
 	 * @return Map<T, Integer> map对象
 	 */

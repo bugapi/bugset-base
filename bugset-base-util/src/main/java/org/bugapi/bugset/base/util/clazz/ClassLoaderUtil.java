@@ -33,7 +33,7 @@ public class ClassLoaderUtil {
 
 	/**
 	 * 根据传入的 限定类名 字符串，寻找名称的类文件，加载进内存 产生class对象
-	 *
+	 * <p>
 	 * eg:
 	 * System.out.println(forName("int[]"));
 	 * 结果：class [I
@@ -62,9 +62,9 @@ public class ClassLoaderUtil {
 	 * 3、内部类，例如：java.lang.Thread.State会被转为java.lang.Thread$State加载
 	 * </pre>
 	 *
-	 * @param className 限定类名 字符串
+	 * @param className     限定类名 字符串
 	 * @param isInitialized 是否初始化类（调用static模块内容和初始化static属性）
-	 * @param classLoader 类加载器
+	 * @param classLoader   类加载器
 	 * @return 初始化类
 	 * @throws ClassNotFoundException 类找不到异常
 	 */
@@ -144,13 +144,13 @@ public class ClassLoaderUtil {
 	/**
 	 * 尝试转换并加载内部类，例如java.lang.Thread.State =》java.lang.Thread$State
 	 *
-	 * @param className 限定类名 字符串
+	 * @param className     限定类名 字符串
 	 * @param isInitialized 是否初始化类（调用static模块内容和初始化static属性）
-	 * @param classLoader 类加载器
+	 * @param classLoader   类加载器
 	 * @return 初始化类
 	 * @throws ClassNotFoundException 类找不到异常
 	 */
-	private static Class<?> tryLoadInnerClass(String className,  boolean isInitialized, ClassLoader classLoader) throws ClassNotFoundException {
+	private static Class<?> tryLoadInnerClass(String className, boolean isInitialized, ClassLoader classLoader) throws ClassNotFoundException {
 		// 尝试获取内部类，例如java.lang.Thread.State =》java.lang.Thread$State
 		int lastDotIndex = className.lastIndexOf(SymbolType.DOT);
 		// 类与内部类的分隔符不能在第一位，因此>0

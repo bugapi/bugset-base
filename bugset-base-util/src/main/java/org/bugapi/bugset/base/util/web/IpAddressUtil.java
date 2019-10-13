@@ -20,10 +20,9 @@ public class IpAddressUtil {
 
 	/**
 	 * 获取访问端的IP地址
-	 * 		使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址
-	 * 		如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，
-	 * 		X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址
-	 *
+	 * 使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址
+	 * 如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，
+	 * X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址
 	 *
 	 * @param request HttpServletRequest请求对象
 	 * @return String Ip地址时
@@ -76,11 +75,11 @@ public class IpAddressUtil {
 		String name;
 		Enumeration<InetAddress> enumIpAddr;
 		String ipaddress;
-		for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+		for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
 			networkInterface = en.nextElement();
 			name = networkInterface.getName();
 			if (!name.contains("docker") && !name.contains("lo")) {
-				for (enumIpAddr = networkInterface.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+				for (enumIpAddr = networkInterface.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
 					inetAddress = enumIpAddr.nextElement();
 					if (!inetAddress.isLoopbackAddress()) {
 						ipaddress = inetAddress.getHostAddress();

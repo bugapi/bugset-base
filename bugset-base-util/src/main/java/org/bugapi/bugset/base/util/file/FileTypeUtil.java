@@ -15,25 +15,35 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @ClassName: FileTypeUtil
- * @Description: 文件类型工具类
- * @author: zhangxw
- * @date: 2019/5/8
+ * 文件类型工具类
+ *
+ * @author zhangxw
+ * @since 0.0.1
  */
 public final class FileTypeUtil {
-	/** 文件格式集合 */
+	/**
+	 * 文件格式集合
+	 */
 	private final static Map<String, String> FILE_TYPE_MAP = new HashMap<>();
 
-	/** 图片文件类型集合 */
+	/**
+	 * 图片文件类型集合
+	 */
 	private static final Set<String> IMG_TYPE_HOLDER = new HashSet<>();
 
-	/** 视频文件类型集合 */
+	/**
+	 * 视频文件类型集合
+	 */
 	private static final Set<String> MEDIA_TYPE_HOLDER = new HashSet<>();
 
-	/** 转换文件类型集合 */
+	/**
+	 * 转换文件类型集合
+	 */
 	private static final Set<String> CONVERT_TYPE_HOLDER = new HashSet<>();
 
-	/** 允许上传的附件的文件后缀 */
+	/**
+	 * 允许上传的附件的文件后缀
+	 */
 	private static final Pattern FILE_SUFFIX_PATTERN;
 
 	static {
@@ -95,11 +105,12 @@ public final class FileTypeUtil {
 
 	/**
 	 * 判断文件名是否是允许上传的文件类型
-	 * @Title: isAllowUploadFileType
+	 *
 	 * @param fileName 文件名
 	 * @return boolean 【true: 允许的类型】
+	 * @Title: isAllowUploadFileType
 	 */
-	public static boolean isAllowUploadFileType(String fileName){
+	public static boolean isAllowUploadFileType(String fileName) {
 		fileName = getLowerCaseFileType(fileName);
 		Matcher matcher = FILE_SUFFIX_PATTERN.matcher(fileName);
 		return matcher.matches();
@@ -107,9 +118,10 @@ public final class FileTypeUtil {
 
 	/**
 	 * 是否是真实的文件格式【就像class文件要校验 魔数 一样】
-	 * @Title: isRealFieFormat
+	 *
 	 * @param file 文件
 	 * @return boolean 【true：真实的文件格式】
+	 * @Title: isRealFieFormat
 	 */
 	public static boolean isRealFieFormat(File file) {
 		if (null == file || !file.exists()) {
@@ -126,9 +138,10 @@ public final class FileTypeUtil {
 
 	/**
 	 * 判断文件是否为可直接预览的图片文件
-	 * @Title: isImgFileType
+	 *
 	 * @param filePath 文件路径
 	 * @return boolean 【true：图片文件】
+	 * @Title: isImgFileType
 	 */
 	public static boolean isImgFileType(String filePath) {
 		String fileType = getLowerCaseFileType(filePath);
@@ -137,9 +150,10 @@ public final class FileTypeUtil {
 
 	/**
 	 * 判断文件是否音频或者视频
-	 * @Title: isMediaFileType
+	 *
 	 * @param filePath 文件路径
 	 * @return boolean 【true：视频或音频】
+	 * @Title: isMediaFileType
 	 */
 	public static boolean isMediaFileType(String filePath) {
 		String fileType = getLowerCaseFileType(filePath);
@@ -148,9 +162,10 @@ public final class FileTypeUtil {
 
 	/**
 	 * 判断文件是否是可以进行文件转换的文件类型
-	 * @Title: isConvertFileType
+	 *
 	 * @param filePath 文件路径
 	 * @return boolean 【true：可进行文件转换的类型】
+	 * @Title: isConvertFileType
 	 */
 	public static boolean isConvertFileType(String filePath) {
 		String fileType = getLowerCaseFileType(filePath);
@@ -159,12 +174,13 @@ public final class FileTypeUtil {
 
 	/**
 	 * 获取文件类型
-	 * @Title: getFileType
+	 *
 	 * @param fileName 文件名【a.jpg 或者 /b/a.jpg 或者 E:\b\a.jpg】
 	 * @return String 文件类型【jpg】
+	 * @Title: getFileType
 	 */
 	public static String getFileType(String fileName) {
-		if(checkFileNameWithOutDot(fileName)){
+		if (checkFileNameWithOutDot(fileName)) {
 			return "";
 		}
 		return fileName.substring(fileName.lastIndexOf(SymbolType.DOT) + 1);
@@ -172,48 +188,52 @@ public final class FileTypeUtil {
 
 	/**
 	 * 获取小写的文件类型
-	 * @Title: getLowerCaseFileType
+	 *
 	 * @param fileName 文件名【a.JPG 或者 /b/a.JPG 或者 E:\b\a.JPG】
 	 * @return String 小写的文件类型jpg
+	 * @Title: getLowerCaseFileType
 	 */
-	public static String getLowerCaseFileType(String fileName){
+	public static String getLowerCaseFileType(String fileName) {
 		return getFileType(fileName).toLowerCase();
 	}
 
 	/**
 	 * 判断文件名中是否有.和后缀
-	 * @Title: checkFileNameWithOutDot
+	 *
 	 * @param filename 文件名
 	 * @return boolean 【true：文件名中没有.】
+	 * @Title: checkFileNameWithOutDot
 	 */
-	private static boolean checkFileNameWithOutDot(String filename){
+	private static boolean checkFileNameWithOutDot(String filename) {
 		return StringUtil.isEmpty(filename) || filename.lastIndexOf(SymbolType.DOT) == -1;
 	}
 
 	/**
 	 * 判断文件格式是否合法
-	 * @Title: isPermitFileType
-	 * @param file 文件
+	 *
+	 * @param file         文件
 	 * @param fileHeadMark 文件头标识
 	 * @return boolean 【true：合法的文件格式】
+	 * @Title: isPermitFileType
 	 */
-	private static boolean isPermitFileType(File file, String fileHeadMark){
+	private static boolean isPermitFileType(File file, String fileHeadMark) {
 		byte[] fileHeadInfo = new byte[50];
 		try (InputStream inputStream = new FileInputStream(file)) {
 			inputStream.read(fileHeadInfo);
 			// 获取十六进制的文件头信息
 			String fileTypeHex = String.valueOf(getFileHexHeadInfo(fileHeadInfo));
 			return fileTypeHex.toUpperCase().startsWith(fileHeadMark);
-		} catch (IOException e){
+		} catch (IOException e) {
 			throw new RuntimeException("校验文件格式的合法性报错");
 		}
 	}
 
 	/**
 	 * 获取十六进制的文件头信息
-	 * @Title: getFileHexHeadInfo
+	 *
 	 * @param fileHeadInfo 文件头的字节数组
 	 * @return String 十六进制的文件头信息
+	 * @Title: getFileHexHeadInfo
 	 */
 	private static String getFileHexHeadInfo(byte[] fileHeadInfo) {
 		if (fileHeadInfo == null || fileHeadInfo.length <= 0) {

@@ -18,10 +18,12 @@ public class JtsTools {
 	 * 几何工厂
 	 */
 	private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
+
 	/**
 	 * 面字符串
 	 */
 	private static final String POLYGON = "POLYGON";
+
 	/**
 	 * 多面字符串
 	 */
@@ -170,7 +172,7 @@ public class JtsTools {
 			double angle = ((double) i / (double) sides) * Math.PI * 2.0;
 			double dx = Math.cos(angle) * radius;
 			double dy = Math.sin(angle) * radius;
-			coords[i] = new Coordinate(x + dx,y + dy);
+			coords[i] = new Coordinate(x + dx, y + dy);
 		}
 		coords[sides] = coords[0];
 		LinearRing ring = GEOMETRY_FACTORY.createLinearRing(coords);

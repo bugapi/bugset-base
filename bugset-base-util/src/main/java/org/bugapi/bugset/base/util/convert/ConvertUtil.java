@@ -370,9 +370,8 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(
-        ValidateUtil::isIntegerNumber).map(Integer::parseInt).collect(Collectors.toList());
+				ValidateUtil::isIntegerNumber).map(Integer::parseInt).collect(Collectors.toList());
 	}
-
 
 
 	/**
@@ -398,7 +397,7 @@ public class ConvertUtil {
 		}
 		delimiter = StringUtil.getDefaultStrSeparator(delimiter);
 		return Arrays.stream(arrStr.split(delimiter)).filter(ObjectUtil::isNotEmpty).filter(
-        ValidateUtil::isIntegerNumber).map(Long::parseLong).collect(Collectors.toList());
+				ValidateUtil::isIntegerNumber).map(Long::parseLong).collect(Collectors.toList());
 	}
 
 

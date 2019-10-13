@@ -8,17 +8,24 @@ package org.bugapi.bugset.base.constant;
  */
 public enum EnvironmentEnum {
 
-	/**开发环境*/
+	/**
+	 * 开发环境
+	 */
 	DEV("dev"),
-	/** 生产环境 */
+	/**
+	 * 生产环境
+	 */
 	PRO("pro"),
-	/** 测试环境 */
+	/**
+	 * 测试环境
+	 */
 	TEST("test");
 
 	/**
 	 * 类型
 	 */
 	private String type;
+
 	EnvironmentEnum(String type) {
 		this.type = type;
 	}

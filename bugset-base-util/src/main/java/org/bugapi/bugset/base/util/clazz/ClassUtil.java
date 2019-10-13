@@ -183,12 +183,12 @@ public class ClassUtil {
 
 	/**
 	 * 获得Java ClassPath路径，不包括 jre
+	 *
 	 * @return Java ClassPath路径
 	 */
 	public static String[] getJavaClassPaths() {
 		return System.getProperty("java.class.path").split(System.getProperty("path.separator"));
 	}
-
 
 
 	public static void main(String[] args) throws Exception {

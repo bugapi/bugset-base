@@ -18,7 +18,7 @@ public class ModifierUtil {
 	/**
 	 * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
 	 *
-	 * @param clazz         类
+	 * @param clazz        类
 	 * @param nodifierEnum 修饰符枚举
 	 * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
 	 */
@@ -32,7 +32,7 @@ public class ModifierUtil {
 	/**
 	 * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
 	 *
-	 * @param constructor   构造方法
+	 * @param constructor  构造方法
 	 * @param nodifierEnum 修饰符枚举
 	 * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
 	 */
@@ -46,7 +46,7 @@ public class ModifierUtil {
 	/**
 	 * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
 	 *
-	 * @param method        方法
+	 * @param method       方法
 	 * @param nodifierEnum 修饰符枚举
 	 * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
 	 */
@@ -60,7 +60,7 @@ public class ModifierUtil {
 	/**
 	 * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
 	 *
-	 * @param field         字段
+	 * @param field        字段
 	 * @param nodifierEnum 修饰符枚举
 	 * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
 	 */

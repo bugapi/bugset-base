@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 /**
  * 迭代器工具类
+ *
  * @author zhangxw
  * @since 0.0.1
  */
@@ -108,7 +109,7 @@ public class IteratorUtil {
 	/**
 	 * 将 Iterator 转为 Iterable
 	 *
-	 * @param <E> 元素类型
+	 * @param <E>      元素类型
 	 * @param iterator Iterator对象
 	 * @return Iterable Iterable对象
 	 */
@@ -119,7 +120,7 @@ public class IteratorUtil {
 	/**
 	 * 获取Iterable中的第一个元素
 	 *
-	 * @param <T> 集合元素类型
+	 * @param <T>      集合元素类型
 	 * @param iterable 迭代器对象
 	 * @return T 第一个元素
 	 */
@@ -133,7 +134,7 @@ public class IteratorUtil {
 	/**
 	 * 获取迭代器中的第一个元素
 	 *
-	 * @param <T> 集合元素类型
+	 * @param <T>      集合元素类型
 	 * @param iterator 迭代器对象
 	 * @return T 第一个元素
 	 */

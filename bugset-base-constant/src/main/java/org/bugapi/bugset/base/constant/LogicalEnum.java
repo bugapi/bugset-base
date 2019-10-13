@@ -2,6 +2,7 @@ package org.bugapi.bugset.base.constant;
 
 /**
  * 逻辑判断类型
+ *
  * @author zhangxw
  * @since 0.0.1
  */

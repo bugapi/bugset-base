@@ -9,6 +9,7 @@ import java.nio.charset.UnsupportedCharsetException;
 
 /**
  * 字符集工具类
+ *
  * @author zhangxw
  * @since 0.0.1
  */
@@ -45,8 +46,9 @@ public class CharsetUtil {
 
 	/**
 	 * 转换字符串的字符集编码
-	 * @param source 字符串
-	 * @param srcCharset 源字符集，默认ISO-8859-1
+	 *
+	 * @param source      字符串
+	 * @param srcCharset  源字符集，默认ISO-8859-1
 	 * @param destCharset 目标字符集，默认UTF-8
 	 * @return 转换后的字符集
 	 */
@@ -63,17 +65,17 @@ public class CharsetUtil {
 	 * 			乱码 -》 UTF-8编码 -》 GBK解码 -》 正确内容
 	 * </pre>
 	 *
-	 * @param source 字符串
-	 * @param srcCharset 源字符集，默认ISO-8859-1
+	 * @param source      字符串
+	 * @param srcCharset  源字符集，默认ISO-8859-1
 	 * @param destCharset 目标字符集，默认UTF-8
 	 * @return 转换后的字符集
 	 */
 	public static String convert(String source, Charset srcCharset, Charset destCharset) {
-		if(null == srcCharset) {
+		if (null == srcCharset) {
 			srcCharset = StandardCharsets.ISO_8859_1;
 		}
 
-		if(null == destCharset) {
+		if (null == destCharset) {
 			destCharset = StandardCharsets.UTF_8;
 		}
 

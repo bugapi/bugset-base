@@ -31,7 +31,7 @@ public class DataBaseUtil {
 	 * @return List<String> sql语句集合
 	 */
 	public static List<String> readSql(InputStream inputStream) {
-		if(null == inputStream){
+		if (null == inputStream) {
 			return null;
 		}
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
@@ -39,10 +39,10 @@ public class DataBaseUtil {
 		String line;
 		try {
 			while ((line = bufferedReader.readLine()) != null) {
-				if(StringUtil.isEmpty(line) || line.trim().startsWith("--")){
+				if (StringUtil.isEmpty(line) || line.trim().startsWith("--")) {
 					continue;
 				}
-				if (line.endsWith(SymbolType.SEMICOLON)){
+				if (line.endsWith(SymbolType.SEMICOLON)) {
 					stringBuilder.append(line.trim());
 				} else {
 					stringBuilder.append(line.trim()).append(" ");
@@ -59,7 +59,7 @@ public class DataBaseUtil {
 			}
 			try {
 				inputStream.close();
-			}catch (IOException e) {
+			} catch (IOException e) {
 				throw new RuntimeException("解析升级脚本的sql语句关闭输入流报错");
 			}
 		}
@@ -68,17 +68,17 @@ public class DataBaseUtil {
 	/**
 	 * 批量执行sql语句没有事务处理
 	 *
-	 * @param sqls sql内容
+	 * @param sqls       sql内容
 	 * @param dataSource 数据源
 	 */
 	public static void batchExecuteSql(List<String> sqls, DataSource dataSource) {
-		if (null == dataSource){
+		if (null == dataSource) {
 			throw new RuntimeException("批量执行sql语句时，数据源为空");
 		}
 		try (Connection con = dataSource.getConnection();
 			 Statement statement = con.createStatement()) {
 			executeBatchSql(sqls, statement);
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException("批量执行sql语句报错", e);
 		}
 	}
@@ -86,11 +86,11 @@ public class DataBaseUtil {
 	/**
 	 * 批量执行sql语句有事务处理
 	 *
-	 * @param sqls sql内容
+	 * @param sqls       sql内容
 	 * @param dataSource 数据源
 	 */
 	public static void batchExecuteSqlWithTransaction(List<String> sqls, DataSource dataSource) {
-		if (null == dataSource){
+		if (null == dataSource) {
 			throw new RuntimeException("批量执行sql语句时，数据源为空");
 		}
 		Connection con = null;
@@ -102,7 +102,7 @@ public class DataBaseUtil {
 			executeBatchSql(sqls, statement);
 			con.commit();
 		} catch (SQLException e) {
-			if(null != con) {
+			if (null != con) {
 				try {
 					con.rollback();
 				} catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class DataBaseUtil {
 				}
 			}
 		} finally {
-			if(null != statement) {
+			if (null != statement) {
 				try {
 					statement.close();
 				} catch (SQLException ex) {
@@ -118,7 +118,7 @@ public class DataBaseUtil {
 				}
 			}
 
-			if(null != con) {
+			if (null != con) {
 				try {
 					con.close();
 				} catch (SQLException ex) {
@@ -131,7 +131,7 @@ public class DataBaseUtil {
 	/**
 	 * 批量执行sql
 	 *
-	 * @param sqls sql内容
+	 * @param sqls      sql内容
 	 * @param statement 发送sql对象
 	 */
 	private static void executeBatchSql(List<String> sqls, Statement statement) throws SQLException {
@@ -148,8 +148,8 @@ public class DataBaseUtil {
 	 * 使用 dbutils 执行【create、alert、drop、insert、update、delete】等方法
 	 *
 	 * @param dataSource 数据源
-	 * @param sql sql语句
-	 * @param params 参数
+	 * @param sql        sql语句
+	 * @param params     参数
 	 * @return int 影响行数
 	 */
 	public static int update(DataSource dataSource, String sql, Object... params) {

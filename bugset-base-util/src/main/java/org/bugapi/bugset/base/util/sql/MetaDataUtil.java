@@ -18,18 +18,18 @@ public class MetaDataUtil {
 	 * 根据数据库数据源和表名判断表是否存在
 	 *
 	 * @param dataSource 数据源
-	 * @param tableName 表名
+	 * @param tableName  表名
 	 * @return boolean 【true：表存在】
 	 */
-	public static boolean existTable(DataSource dataSource, String tableName){
-		if(null == dataSource){
+	public static boolean existTable(DataSource dataSource, String tableName) {
+		if (null == dataSource) {
 			return false;
 		}
 		ResultSet resultSet = null;
 		Connection connection = null;
-		try{
+		try {
 			connection = dataSource.getConnection();
-			if(null == connection){
+			if (null == connection) {
 				return false;
 			}
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
@@ -43,23 +43,23 @@ public class MetaDataUtil {
 				return false;
 			}
 			return resultSet.next();
-		}catch (SQLException e){
-			throw new RuntimeException("判断表"+tableName+"是否存在出错", e);
+		} catch (SQLException e) {
+			throw new RuntimeException("判断表" + tableName + "是否存在出错", e);
 		} finally {
 			// 关闭结果集
-			if(null != resultSet){
+			if (null != resultSet) {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					throw new RuntimeException("判断表"+tableName+"是否存在时，关闭结果集报错", e);
+					throw new RuntimeException("判断表" + tableName + "是否存在时，关闭结果集报错", e);
 				}
 			}
 			// 关闭连接
-			if(null != connection){
+			if (null != connection) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					throw new RuntimeException("判断表"+tableName+"是否存在时，关闭连接报错", e);
+					throw new RuntimeException("判断表" + tableName + "是否存在时，关闭连接报错", e);
 				}
 			}
 		}

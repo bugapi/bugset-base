@@ -14,11 +14,11 @@ public class StackTraceUtil {
 	 * @param e 异常类
 	 * @return String 异常信息
 	 */
-	public static String getExceptionMsg(Exception e){
+	public static String getExceptionMsg(Exception e) {
 		if (null != e && null != e.getStackTrace() && e.getStackTrace().length >= 1) {
 			StackTraceElement stackTraceElement = e.getStackTrace()[0];
-			return String.format("--error messag detail：%s, file=%s, method=%s, line=%s",e.toString(),
-					getFileName(stackTraceElement),getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
+			return String.format("--error messag detail：%s, file=%s, method=%s, line=%s", e.toString(),
+					getFileName(stackTraceElement), getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
 		}
 		return "堆栈信息为空";
 	}
@@ -28,7 +28,7 @@ public class StackTraceUtil {
 	 *
 	 * @return String
 	 */
-	public static String getCurrentLineMsg(){
+	public static String getCurrentLineMsg() {
 		/*
 		调用本类中方法的位置 --> StackTraceUtil.getLineNumber() --> Thread.getStackStrace()
 		因为栈是 先入后出 (队列是 先入先出), 所以最初调用位置的函数栈下表是 2
@@ -36,7 +36,7 @@ public class StackTraceUtil {
 		int originStackIndex = 2;
 		StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[originStackIndex];
 		return String.format("--current line detail：file=%s, method=%s, line=%s",
-				getFileName(stackTraceElement),getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
+				getFileName(stackTraceElement), getMethodName(stackTraceElement), getLineNumber(stackTraceElement));
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class StackTraceUtil {
 	 * @return String 文件名
 	 */
 	private static String getFileName(StackTraceElement stackTraceElement) {
-		if(null != stackTraceElement){
+		if (null != stackTraceElement) {
 			return stackTraceElement.getFileName();
 		}
 		return "StackTraceUtil.java";
@@ -59,7 +59,7 @@ public class StackTraceUtil {
 	 * @return String 获取类名
 	 */
 	private static String getClassName(StackTraceElement stackTraceElement) {
-		if(null != stackTraceElement) {
+		if (null != stackTraceElement) {
 			return stackTraceElement.getClassName();
 		}
 		return "org.bugapi.bugset.base.util.exception.StackTraceUtil";
@@ -72,7 +72,7 @@ public class StackTraceUtil {
 	 * @return String 方法名
 	 */
 	private static String getMethodName(StackTraceElement stackTraceElement) {
-		if(null != stackTraceElement) {
+		if (null != stackTraceElement) {
 			return stackTraceElement.getMethodName();
 		}
 		return "getMethodName";
@@ -85,7 +85,7 @@ public class StackTraceUtil {
 	 * @return int 行号
 	 */
 	private static int getLineNumber(StackTraceElement stackTraceElement) {
-		if(null != stackTraceElement) {
+		if (null != stackTraceElement) {
 			return stackTraceElement.getLineNumber();
 		}
 		return 0;

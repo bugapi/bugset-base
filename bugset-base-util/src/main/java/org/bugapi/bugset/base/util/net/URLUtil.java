@@ -17,6 +17,7 @@ import java.util.jar.JarFile;
 
 /**
  * URL工具类
+ *
  * @author zhangxw
  * @since 0.0.1
  */
@@ -104,7 +105,8 @@ public class URLUtil {
 
 	/**
 	 * URL解码   将%开头的16进制表示的内容解码。
-	 * @param url 路径
+	 *
+	 * @param url         路径
 	 * @param charsetName 字符集名称
 	 * @return 解码后的路径
 	 * @throws UnsupportedEncodingException 不支持解码异常

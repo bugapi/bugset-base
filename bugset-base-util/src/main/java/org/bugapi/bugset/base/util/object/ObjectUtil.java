@@ -68,6 +68,7 @@ public class ObjectUtil {
 		}
 		return obj1.compareTo(obj2);
 	}
+
 	/**
 	 * 判断对象是否为空
 	 *
@@ -93,7 +94,7 @@ public class ObjectUtil {
 		} else if (obj instanceof Map) {
 			// 判断为map集合
 			return ((Map) obj).isEmpty();
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -123,7 +124,7 @@ public class ObjectUtil {
 		} else if (obj instanceof Map) {
 			// 判断为map集合
 			return ((Map) obj).size() >= 1;
-		}else{
+		} else {
 			return true;
 		}
 	}
@@ -164,7 +165,7 @@ public class ObjectUtil {
 	 * 对象中是否包含元素
 	 * 支持的对象：String、Collection、Map、Iterator、Enumeration、Array
 	 *
-	 * @param data     对象集合、数组、Map对象等
+	 * @param data    对象集合、数组、Map对象等
 	 * @param element 一个元素
 	 * @return boolean true:包含、false:不包含
 	 */

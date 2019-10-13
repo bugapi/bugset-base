@@ -1,20 +1,15 @@
 package org.bugapi.bugset.base.util.clazz;
 
-import org.bugapi.bugset.base.constant.CharsetType;
 import org.bugapi.bugset.base.constant.FileType;
 import org.bugapi.bugset.base.constant.SymbolType;
-import org.bugapi.bugset.base.util.charset.CharsetUtil;
-import org.bugapi.bugset.base.util.collection.CollectionUtil;
 import org.bugapi.bugset.base.util.net.URLUtil;
 import org.bugapi.bugset.base.util.resource.ResourceUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
-import sun.tools.jar.resources.jar;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
