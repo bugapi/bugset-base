@@ -1,6 +1,5 @@
 package org.bugapi.bugset.base.util.net;
 
-import com.sun.xml.internal.ws.util.UtilException;
 import org.bugapi.bugset.base.constant.CharsetType;
 import org.bugapi.bugset.base.constant.FileType;
 import org.bugapi.bugset.base.constant.URLType;

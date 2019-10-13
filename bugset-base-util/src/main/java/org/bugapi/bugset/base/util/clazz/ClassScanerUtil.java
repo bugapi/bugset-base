@@ -2,6 +2,9 @@ package org.bugapi.bugset.base.util.clazz;
 
 import org.bugapi.bugset.base.constant.FileType;
 import org.bugapi.bugset.base.constant.SymbolType;
+import org.bugapi.bugset.base.util.array.ArrayUtil;
+import org.bugapi.bugset.base.util.charset.CharsetUtil;
+import org.bugapi.bugset.base.util.collection.CollectionUtil;
 import org.bugapi.bugset.base.util.net.URLUtil;
 import org.bugapi.bugset.base.util.resource.ResourceUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
@@ -91,19 +94,35 @@ public class ClassScanerUtil{
 			return classes;
 		}
 		for (URL url : ResourceUtil.getResources(packageName)) {
-			switch (url.getProtocol()) {
-				case "jar":
-					scanJar(packageName, URLUtil.getJarFile(url), isInitialized, classFilter, classes);
-					break;
-				default:
-					// 默认协议是：file
-					scanFile(packageName, new File(URLUtil.decode(url.getFile())), null, isInitialized,
-							classFilter, classes);
-					break;
+			if ("jar".equals(url.getProtocol())) {
+				scanJar(packageName, URLUtil.getJarFile(url), isInitialized, classFilter, classes);
+			} else {// 默认协议是：file
+				scanFile(packageName, new File(URLUtil.decode(url.getFile())), null, isInitialized,
+						classFilter, classes);
 			}
 		}
 
+		if(CollectionUtil.isEmpty(classes)) {
+			scanJavaClassPaths(packageName,isInitialized, classFilter, classes);
+		}
+
 		return Collections.unmodifiableSet(classes);
+	}
+
+	/**
+	 * 扫描Java指定的ClassPath路径
+	 *
+	 * @return 扫描到的类
+	 */
+	private static void scanJavaClassPaths(String packageName,boolean isInitialized, Filter<Class<?>> classFilter,
+									Set<Class<?>> classes) throws IOException {
+		final String[] javaClassPaths = ClassUtil.getJavaClassPaths();
+		for (String classPath : javaClassPaths) {
+			// bug修复，由于路径中空格和中文导致的Jar找不到
+			classPath = URLUtil.decode(classPath, CharsetUtil.defaultCharsetName());
+
+			scanFile(packageName, new File(classPath), null, isInitialized, classFilter, classes);
+		}
 	}
 
 
@@ -130,7 +149,11 @@ public class ClassScanerUtil{
 				scanJar(packageName, new JarFile(file), isInitialized, classFilter, classes);
 			}
 		} else if (file.isDirectory()) {
-			for (File subFile : file.listFiles()) {
+			File[] files = file.listFiles();
+			if(ArrayUtil.isEmpty(files)){
+				return;
+			}
+			for (File subFile : files) {
 				scanFile(packageName, subFile, (null == rootDir) ? subPathBeforePackage(packageName, file) : rootDir,
 						isInitialized
 						, classFilter, classes);
@@ -251,5 +274,14 @@ public class ClassScanerUtil{
 		 * @return 是否接受对象
 		 */
 		boolean accept(T t);
+	}
+
+
+	public static void main(String[] args) throws IOException {
+		Set<Class<?>> set0 = scanPackage("org.bugapi.bugset.base.util.net");
+
+		Set<Class<?>> set1 = scanPackage("org.bugapi.bugset.base.util.string");
+		Set<Class<?>> set2 = scanPackage("org.bugapi.bugset.base.util.clazz");
+		set2.forEach(System.out::println);
 	}
 }

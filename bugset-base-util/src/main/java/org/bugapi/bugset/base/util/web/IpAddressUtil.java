@@ -1,6 +1,5 @@
 package org.bugapi.bugset.base.util.web;
 
-import com.sun.security.ntlm.Server;
 import org.bugapi.bugset.base.util.server.ServerUtil;
 
 import javax.servlet.http.HttpServletRequest;
