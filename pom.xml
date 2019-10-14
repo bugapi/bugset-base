@@ -54,6 +54,7 @@
         <gt.version>17.2</gt.version>
         <jts.version>1.13</jts.version>
         <dbutils.version>1.7</dbutils.version>
+        <lombok.version>1.16.0</lombok.version>
     </properties>
 
     <repositories>
@@ -160,6 +161,13 @@
                 <groupId>commons-dbutils</groupId>
                 <artifactId>commons-dbutils</artifactId>
                 <version>${dbutils.version}</version>
+            </dependency>
+
+            <!-- lombok插件支持 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
