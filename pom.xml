@@ -12,6 +12,7 @@
     <modules>
         <module>bugset-base-constant</module>
         <module>bugset-base-util</module>
+        <module>bugset-base-function</module>
     </modules>
 
     <developers>
