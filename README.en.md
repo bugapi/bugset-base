@@ -14,5 +14,4 @@ bugset-base is a basic project of bugset, including common constants, custom exc
     > please install maven (http://maven.apache.org/download.cgi)
 
 #### Contact us
-
 - DingDing：21971126
