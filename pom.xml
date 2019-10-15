@@ -13,6 +13,7 @@
         <module>bugset-base-constant</module>
         <module>bugset-base-util</module>
         <module>bugset-base-function</module>
+        <module>bugset-base-exception</module>
     </modules>
 
     <developers>
