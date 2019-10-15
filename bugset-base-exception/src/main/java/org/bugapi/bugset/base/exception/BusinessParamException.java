@@ -1,7 +1,6 @@
 package org.bugapi.bugset.base.exception;
 
 import org.bugapi.bugset.base.exception.enums.BusinessExceptionEnum;
-import org.bugapi.bugset.base.exception.enums.ExceptionTypeEnum;
 
 /**
  * 业务异常
@@ -16,8 +15,7 @@ public class BusinessParamException extends BaseException {
     super(BusinessExceptionEnum.BUSINESS_ERROR, message);
   }
 
-  public BusinessParamException(ExceptionTypeEnum exceptionType,
-      String message) {
+  public BusinessParamException(BusinessExceptionEnum exceptionType, String message) {
     super(exceptionType, message);
   }
 

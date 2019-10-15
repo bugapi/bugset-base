@@ -1,7 +1,6 @@
 package org.bugapi.bugset.base.exception;
 
 import org.bugapi.bugset.base.exception.enums.ApiParamExceptionEnum;
-import org.bugapi.bugset.base.exception.enums.ExceptionTypeEnum;
 
 /**
  * api参数异常
@@ -16,8 +15,7 @@ public class ApiParamException extends BaseException {
     super(ApiParamExceptionEnum.PARAM_ERROR, message);
   }
 
-  public ApiParamException(ExceptionTypeEnum exceptionType,
-      String message) {
+  public ApiParamException(ApiParamExceptionEnum exceptionType, String message) {
     super(exceptionType, message);
   }
 
