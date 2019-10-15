@@ -12,4 +12,11 @@
     <artifactId>bugset-base-exception</artifactId>
 
 
+    <dependencies>
+        <!-- lombok插件支持 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 </project>
