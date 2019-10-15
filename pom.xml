@@ -14,6 +14,7 @@
         <module>bugset-base-util</module>
         <module>bugset-base-function</module>
         <module>bugset-base-exception</module>
+        <module>bugset-base-validation</module>
     </modules>
 
     <developers>
@@ -57,6 +58,9 @@
         <jts.version>1.13</jts.version>
         <dbutils.version>1.7</dbutils.version>
         <lombok.version>1.16.0</lombok.version>
+        <aspectj.version>1.9.4</aspectj.version>
+        <javax.validation.version>1.1.0.Final</javax.validation.version>
+        <hibernate.validation.version>5.0.3.Final</hibernate.validation.version>
     </properties>
 
     <repositories>
@@ -170,6 +174,24 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
