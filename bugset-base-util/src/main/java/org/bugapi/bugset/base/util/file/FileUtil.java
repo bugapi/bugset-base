@@ -53,7 +53,7 @@ public final class FileUtil {
 	 * @Title: getClassPath
 	 */
 	public static String getClassPath() {
-		if (ServerUtil.isWindowsOS()) {
+		if (ServerUtil.isWindows()) {
 			/*
 			 Objects.requireNonNull(FileUtil.class.getClassLoader().getResource("")).getPath()的值为：
 			 	/E:/thirdPartyCode/gridcloud/gridcloud-base/gridcloud-base-util/target/classes/

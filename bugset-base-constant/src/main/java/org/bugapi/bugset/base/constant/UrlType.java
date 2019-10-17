@@ -6,7 +6,7 @@ package org.bugapi.bugset.base.constant;
  * @author zhangxw
  * @since 0.0.1
  */
-public class URLType {
+public class UrlType {
 	/**
 	 * 针对ClassPath路径的伪协议前缀（兼容Spring）: "classpath:"
 	 */

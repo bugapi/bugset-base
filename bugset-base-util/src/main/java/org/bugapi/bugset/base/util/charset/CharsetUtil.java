@@ -1,7 +1,6 @@
 package org.bugapi.bugset.base.util.charset;
 
 import org.bugapi.bugset.base.constant.CharsetType;
-import org.bugapi.bugset.base.util.file.FileUtil;
 import org.bugapi.bugset.base.util.server.ServerUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 
@@ -95,7 +94,7 @@ public class CharsetUtil {
 	 * @since 3.1.2
 	 */
 	public static Charset systemCharset() {
-		return ServerUtil.isWindowsOS() ? CharsetType.CHARSET_GBK : defaultCharset();
+		return ServerUtil.isWindows() ? CharsetType.CHARSET_GBK : defaultCharset();
 	}
 
 	public static void main(String[] args) {

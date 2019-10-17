@@ -5,7 +5,7 @@ import org.bugapi.bugset.base.constant.SymbolType;
 import org.bugapi.bugset.base.util.array.ArrayUtil;
 import org.bugapi.bugset.base.util.charset.CharsetUtil;
 import org.bugapi.bugset.base.util.collection.CollectionUtil;
-import org.bugapi.bugset.base.util.net.URLUtil;
+import org.bugapi.bugset.base.util.net.UrlUtil;
 import org.bugapi.bugset.base.util.resource.ResourceUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 
@@ -95,9 +95,9 @@ public class ClassScanerUtil{
 		}
 		for (URL url : ResourceUtil.getResources(packageName)) {
 			if ("jar".equals(url.getProtocol())) {
-				scanJar(packageName, URLUtil.getJarFile(url), isInitialized, classFilter, classes);
+				scanJar(packageName, UrlUtil.getJarFile(url), isInitialized, classFilter, classes);
 			} else {// 默认协议是：file
-				scanFile(packageName, new File(URLUtil.decode(url.getFile())), null, isInitialized,
+				scanFile(packageName, new File(UrlUtil.decode(url.getFile())), null, isInitialized,
 						classFilter, classes);
 			}
 		}
@@ -119,7 +119,7 @@ public class ClassScanerUtil{
 		final String[] javaClassPaths = ClassUtil.getJavaClassPaths();
 		for (String classPath : javaClassPaths) {
 			// bug修复，由于路径中空格和中文导致的Jar找不到
-			classPath = URLUtil.decode(classPath, CharsetUtil.defaultCharsetName());
+			classPath = UrlUtil.decode(classPath, CharsetUtil.defaultCharsetName());
 
 			scanFile(packageName, new File(classPath), null, isInitialized, classFilter, classes);
 		}
@@ -139,10 +139,10 @@ public class ClassScanerUtil{
 		if (file.isFile()) {
 			String fileName = file.getAbsolutePath();
 			if (fileName.endsWith(FileType.CLASS_EXT)) {
-				String className = fileName//
-						// 8为classes长度，fileName.length() - 6为".class"的长度
-						.substring(rootDir.length(), fileName.length() - 6)//
-						.replace(File.separator, SymbolType.DOT);//
+				// 8为classes长度，fileName.length() - 6为".class"的长度
+				String className = fileName
+						.substring(rootDir.length(), fileName.length() - 6)
+						.replace(File.separator, SymbolType.DOT);
 				//加入满足条件的类
 				addIfAccept(packageName, className, isInitialized, classFilter, classes);
 			} else if (fileName.endsWith(FileType.JAR_FILE_EXT)) {
@@ -178,9 +178,9 @@ public class ClassScanerUtil{
 			name = StringUtil.removePrefix(entry.getName(), SymbolType.SLASH);
 			if (name.startsWith(packagePath)) {
 				if (name.endsWith(FileType.CLASS_EXT) && !entry.isDirectory()) {
-					final String className = name//
-							.substring(0, name.length() - 6)//
-							.replace(SymbolType.SLASH, SymbolType.DOT);//
+					final String className = name
+							.substring(0, name.length() - 6)
+							.replace(SymbolType.SLASH, SymbolType.DOT);
 					addIfAccept(loadClass(className, isInitialized), classFilter, classes);
 				}
 			}
@@ -203,7 +203,6 @@ public class ClassScanerUtil{
 			// 版本导致的不兼容的类，跳过
 		} catch (Exception e) {
 			throw new RuntimeException(e);
-			// Console.error(e);
 		}
 		return clazz;
 	}

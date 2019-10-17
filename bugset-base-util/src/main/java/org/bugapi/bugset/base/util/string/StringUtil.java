@@ -382,9 +382,9 @@ public class StringUtil {
 			return str;
 		}
 
-		final String str2 = str.toString();
-		if (str.startsWith(prefix.toString())) {
-			return str.substring(prefix.length());// 截取后半段
+		if (str.startsWith(prefix)) {
+			// 截取后半段
+			return str.substring(prefix.length());
 		}
 		return str;
 	}

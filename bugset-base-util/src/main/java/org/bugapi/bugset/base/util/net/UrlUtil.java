@@ -2,7 +2,7 @@ package org.bugapi.bugset.base.util.net;
 
 import org.bugapi.bugset.base.constant.CharsetType;
 import org.bugapi.bugset.base.constant.FileType;
-import org.bugapi.bugset.base.constant.URLType;
+import org.bugapi.bugset.base.constant.UrlType;
 import org.bugapi.bugset.base.util.charset.CharsetUtil;
 import org.bugapi.bugset.base.util.string.StringUtil;
 
@@ -20,7 +20,7 @@ import java.util.jar.JarFile;
  * @author zhangxw
  * @since 0.0.1
  */
-public class URLUtil {
+public class UrlUtil {
 
 	/**
 	 * 判断URL为文件 文件协议包括"file", "vfsfile" 或 "vfs".
@@ -28,11 +28,11 @@ public class URLUtil {
 	 * @param url 路径
 	 * @return boolean 【true：文件URL】
 	 */
-	public static boolean isFileURL(URL url) {
+	public static boolean isFileUrl(URL url) {
 		String protocol = url.getProtocol();
-		return (URLType.URL_PROTOCOL_FILE.equals(protocol) ||
-				URLType.URL_PROTOCOL_VFSFILE.equals(protocol) ||
-				URLType.URL_PROTOCOL_VFS.equals(protocol));
+		return (UrlType.URL_PROTOCOL_FILE.equals(protocol) ||
+				UrlType.URL_PROTOCOL_VFSFILE.equals(protocol) ||
+				UrlType.URL_PROTOCOL_VFS.equals(protocol));
 	}
 
 	/**
@@ -41,12 +41,12 @@ public class URLUtil {
 	 * @param url 路径
 	 * @return boolean 【true：jar包URL】
 	 */
-	public static boolean isJarURL(URL url) {
+	public static boolean isJarUrl(URL url) {
 		final String protocol = url.getProtocol();
-		return (URLType.URL_PROTOCOL_JAR.equals(protocol) ||
-				URLType.URL_PROTOCOL_ZIP.equals(protocol) ||
-				URLType.URL_PROTOCOL_VFSZIP.equals(protocol) ||
-				URLType.URL_PROTOCOL_WSJAR.equals(protocol));
+		return (UrlType.URL_PROTOCOL_JAR.equals(protocol) ||
+				UrlType.URL_PROTOCOL_ZIP.equals(protocol) ||
+				UrlType.URL_PROTOCOL_VFSZIP.equals(protocol) ||
+				UrlType.URL_PROTOCOL_WSJAR.equals(protocol));
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class URLUtil {
 	 * @param url 路径
 	 * @return boolean 【true：jar文件路径】
 	 */
-	public static boolean isJarFileURL(URL url) {
-		return (URLType.URL_PROTOCOL_FILE.equals(url.getProtocol()) &&
+	public static boolean isJarFileUrl(URL url) {
+		return (UrlType.URL_PROTOCOL_FILE.equals(url.getProtocol()) &&
 				url.getPath().toLowerCase().endsWith(FileType.JAR_FILE_EXT));
 	}
 

@@ -51,7 +51,7 @@ public class IpAddressUtil {
 	 */
 	public static String getLocalIpAddress() throws UnknownHostException, SocketException {
 		// 判断为windows系统
-		if (ServerUtil.isWindowsOS()) {
+		if (ServerUtil.isWindows()) {
 			return InetAddress.getLocalHost().getHostAddress();
 		} else {
 			return getLinuxLocalIpAddress();

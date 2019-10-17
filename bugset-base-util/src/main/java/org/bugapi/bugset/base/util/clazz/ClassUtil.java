@@ -1,16 +1,22 @@
 package org.bugapi.bugset.base.util.clazz;
 
-import org.bugapi.bugset.base.util.array.ArrayUtil;
+import static org.bugapi.bugset.base.constant.UrlType.URL_PROTOCOL_FILE;
+import static org.bugapi.bugset.base.constant.UrlType.URL_PROTOCOL_JAR;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import org.bugapi.bugset.base.util.array.ArrayUtil;
 
 /**
  * Class工具类
@@ -190,32 +196,6 @@ public class ClassUtil {
 		return System.getProperty("java.class.path").split(System.getProperty("path.separator"));
 	}
 
-
-	public static void main(String[] args) throws Exception {
-/*		System.out.println(Boolean.TYPE);
-		System.out.println(boolean.class);
-		System.out.println(boolean[].class);
-		System.out.println(Boolean.class);
-		System.out.println(Integer.TYPE);
-
-		List<String> list = new ArrayList<String>();
-		System.out.println(getSuperClassGenericsClass(list.getClass(), 0));
-
-		System.out.println(getClassName(new ClassUtil(), false));*/
-
-		String[] arr = getJavaClassPaths();
-		Arrays.stream(arr).forEach(System.out::println);
-
-		//System.out.println(getClassName(class, true));
-		/*String packageName = "org.objectweb.asm";
-		Set<String> classNames = getClassName(packageName, false);
-		if (classNames != null) {
-			for (String className : classNames) {
-				System.out.println(className);
-			}
-		}*/
-	}
-
 	/**
 	 * 获取某包下所有类
 	 *
@@ -231,9 +211,9 @@ public class ClassUtil {
 		URL url = loader.getResource(packagePath);
 		if (url != null) {
 			String protocol = url.getProtocol();
-			if (protocol.equals("file")) {
+			if (URL_PROTOCOL_FILE.equals(protocol)) {
 				classNames = getClassNameFromDir(url.getPath(), packageName, isRecursion);
-			} else if (protocol.equals("jar")) {
+			} else if (URL_PROTOCOL_JAR.equals(protocol)) {
 				JarFile jarFile = null;
 				try {
 					jarFile = ((JarURLConnection) url.openConnection()).getJarFile();
@@ -257,7 +237,7 @@ public class ClassUtil {
 	 * 从项目文件获取某包下所有类
 	 *
 	 * @param filePath    文件路径
-	 * @param className   类名集合
+	 * @param packageName   类名集合
 	 * @param isRecursion 是否遍历子包
 	 * @return 类的完整名称
 	 */

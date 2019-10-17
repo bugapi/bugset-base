@@ -33,7 +33,7 @@ public class ServerUtil {
 	 *
 	 * @return boolean 【true：是】
 	 */
-	public static boolean isWindowsOS() {
+	public static boolean isWindows() {
 		return System.getProperty(OS_NAME).toLowerCase().contains(WINDOWS);
 	}
 
@@ -42,7 +42,7 @@ public class ServerUtil {
 	 *
 	 * @return boolean 【true：是】
 	 */
-	public static boolean isLinuxOS() {
+	public static boolean isLinux() {
 		return System.getProperty(OS_NAME).toLowerCase().contains(LINUX);
 	}
 
