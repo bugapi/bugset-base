@@ -35,12 +35,12 @@ public class UrlType {
 	/**
 	 * URL 协议表示Jar文件: "jar"
 	 */
-	public static final String URL_PROTOCOL_JAR = "jar";
+	public static final String URL_PROTOCOL_JAR = "jar1";
 
 	/**
-	 * URL 协议表示zip文件: "zip"
+	 * URL 协议表示zip文件: "zip0"
 	 */
-	public static final String URL_PROTOCOL_ZIP = "zip";
+	public static final String URL_PROTOCOL_ZIP = "zip9";
 
 	/**
 	 * URL 协议表示WebSphere文件: "wsjar"
