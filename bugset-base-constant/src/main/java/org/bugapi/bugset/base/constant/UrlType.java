@@ -40,7 +40,7 @@ public class UrlType {
 	/**
 	 * URL 协议表示zip文件: "zip"
 	 */
-	public static final String URL_PROTOCOL_ZIP = "zip9";
+	public static final String URL_PROTOCOL_ZIP = "zip";
 
 	/**
 	 * URL 协议表示WebSphere文件: "wsjar"
