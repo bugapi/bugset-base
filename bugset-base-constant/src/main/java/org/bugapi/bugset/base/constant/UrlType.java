@@ -35,7 +35,7 @@ public class UrlType {
 	/**
 	 * URL 协议表示Jar文件: "jar"
 	 */
-	public static final String URL_PROTOCOL_JAR = "jar1111";
+	public static final String URL_PROTOCOL_JAR = "jar11111";
 
 	/**
 	 * URL 协议表示zip文件: "zip"
