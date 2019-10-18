@@ -24,10 +24,6 @@ public class UrlType {
 	 */
 	public static final String WAR_URL_PREFIX = "war:";
 	/**
-	 * URL 协议表示文件: "file"
-	 */
-	public static final String URL_PROTOCOL_FILE = "file";
-	/**
 	 * URL 协议表示Jar文件: "jar"
 	 */
 	public static final String URL_PROTOCOL_JAR = "jar";
@@ -51,4 +47,8 @@ public class UrlType {
 	 * URL 协议表示JBoss VFS资源: "vfs"
 	 */
 	public static final String URL_PROTOCOL_VFS = "vfs";
+	/**
+	 * URL 协议表示文件: "file"
+	 */
+	public static final String URL_PROTOCOL_FILE = "file";
 }
