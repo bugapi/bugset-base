@@ -5,13 +5,14 @@ bugset-base is a basic project of bugset, including common constants, custom exc
 
 #### Software Architecture
 1. bugset-base-constant constants
-2. bugset-base-util utils
+2. bugset-base-exception exceptions
+3. bugset-base-function multiParam functional interface
+4. bugset-base-util utils
+5. bugset-base-validation validation
 
 #### Environmental dependence
 * jdk1.8
 * maven
-  
-    > please install maven (http://maven.apache.org/download.cgi)
 
 #### Contact us
 - DingDing：21971126
