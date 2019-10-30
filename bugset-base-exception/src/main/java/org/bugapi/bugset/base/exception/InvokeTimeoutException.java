@@ -12,15 +12,20 @@ import org.bugapi.bugset.base.exception.enums.ExceptionTypeEnum;
  */
 public class InvokeTimeoutException extends BaseException {
 
-  public InvokeTimeoutException(Throwable cause) {
+  /**
+   * 调用参数
+   */
+  private Object[] args;
+
+  public InvokeTimeoutException(Object[] args, Throwable cause) {
     super(BusinessExceptionEnum.BUSINESS_ERROR, cause);
   }
 
-  public InvokeTimeoutException(String message, Throwable cause) {
+  public InvokeTimeoutException(Object[] args, String message, Throwable cause) {
     super(BusinessExceptionEnum.BUSINESS_ERROR, message, cause);
   }
 
-  public InvokeTimeoutException(
+  public InvokeTimeoutException(Object[] args,
       ExceptionTypeEnum exceptionType, String message, Throwable cause) {
     super(exceptionType, message, cause);
   }

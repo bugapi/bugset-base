@@ -12,15 +12,20 @@ import org.bugapi.bugset.base.exception.enums.ExceptionTypeEnum;
  */
 public class InvokeException extends BaseException {
 
-  public InvokeException(Throwable cause) {
+  /**
+   * 调用参数
+   */
+  private Object[] args;
+
+  public InvokeException(Object[] args, Throwable cause) {
     super(BusinessExceptionEnum.BUSINESS_ERROR, cause);
   }
 
-  public InvokeException(String message, Throwable cause) {
+  public InvokeException(Object[] args, String message, Throwable cause) {
     super(BusinessExceptionEnum.BUSINESS_ERROR, message, cause);
   }
 
-  public InvokeException(
+  public InvokeException(Object[] args,
       ExceptionTypeEnum exceptionType, String message, Throwable cause) {
     super(exceptionType, message, cause);
   }
