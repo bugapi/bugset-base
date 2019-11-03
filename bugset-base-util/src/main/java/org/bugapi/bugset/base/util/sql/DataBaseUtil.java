@@ -1,5 +1,8 @@
 package org.bugapi.bugset.base.util.sql;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import org.apache.commons.dbutils.QueryRunner;
 import org.bugapi.bugset.base.constant.SymbolType;
 import org.bugapi.bugset.base.util.string.StringUtil;
@@ -27,17 +30,15 @@ public class DataBaseUtil {
 	/**
 	 * 读取sql文件内容并根据分号转成list
 	 *
-	 * @param inputStream 字符缓冲输入流
-	 * @return List<String> sql语句集合
+	 * @param path 文件路径
+	 * @return List<String> 文件行内容集合
+	 * @throws IOException 文件读异常
 	 */
-	public static List<String> readSql(InputStream inputStream) {
-		if (null == inputStream) {
-			return null;
-		}
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+	public static List<String> readSql(Path path) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
 		String line;
-		try {
+		try (InputStream inputStream = Files.newInputStream(path, StandardOpenOption.READ);
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 			while ((line = bufferedReader.readLine()) != null) {
 				if (StringUtil.isEmpty(line) || line.trim().startsWith("--")) {
 					continue;
@@ -49,19 +50,6 @@ public class DataBaseUtil {
 				}
 			}
 			return Arrays.asList(stringBuilder.toString().trim().split(SymbolType.SEMICOLON));
-		} catch (IOException e) {
-			throw new RuntimeException("解析升级脚本的sql语句报错");
-		} finally {
-			try {
-				bufferedReader.close();
-			} catch (IOException e) {
-				throw new RuntimeException("解析升级脚本的sql语句关闭缓冲输入流报错");
-			}
-			try {
-				inputStream.close();
-			} catch (IOException e) {
-				throw new RuntimeException("解析升级脚本的sql语句关闭输入流报错");
-			}
 		}
 	}
 
@@ -70,6 +58,7 @@ public class DataBaseUtil {
 	 *
 	 * @param sqls       sql内容
 	 * @param dataSource 数据源
+	 * @throws SQLException SQL执行异常
 	 */
 	public static void batchExecuteSql(List<String> sqls, DataSource dataSource) throws SQLException {
 		if (null == dataSource) {
@@ -86,6 +75,7 @@ public class DataBaseUtil {
 	 *
 	 * @param sqls       sql内容
 	 * @param dataSource 数据源
+	 * @throws SQLException SQL执行异常
 	 */
 	public static void batchExecuteSqlWithTransaction(List<String> sqls, DataSource dataSource)
 			throws SQLException {
@@ -105,6 +95,7 @@ public class DataBaseUtil {
 	 *
 	 * @param sqls      sql内容
 	 * @param statement 发送sql对象
+	 * @throws SQLException SQL执行异常
 	 */
 	private static void executeBatchSql(List<String> sqls, Statement statement) throws SQLException {
 
@@ -123,18 +114,14 @@ public class DataBaseUtil {
 	 * @param sql        sql语句
 	 * @param params     参数
 	 * @return int 影响行数
+	 * @throws SQLException SQL执行异常
 	 */
-	public static int update(DataSource dataSource, String sql, Object... params) {
+	public static int update(DataSource dataSource, String sql, Object... params)
+			throws SQLException {
 		if (null == dataSource) {
 			return 0;
 		}
 		QueryRunner queryRunner = new QueryRunner(dataSource);
-		int operateCount;
-		try {
-			operateCount = queryRunner.update(sql, params);
-		} catch (SQLException e) {
-			throw new RuntimeException("执行sql语句报错", e);
-		}
-		return operateCount;
+		return queryRunner.update(sql, params);
 	}
 }
