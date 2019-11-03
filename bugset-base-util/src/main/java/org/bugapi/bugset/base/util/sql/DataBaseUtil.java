@@ -71,15 +71,13 @@ public class DataBaseUtil {
 	 * @param sqls       sql内容
 	 * @param dataSource 数据源
 	 */
-	public static void batchExecuteSql(List<String> sqls, DataSource dataSource) {
+	public static void batchExecuteSql(List<String> sqls, DataSource dataSource) throws SQLException {
 		if (null == dataSource) {
 			throw new RuntimeException("批量执行sql语句时，数据源为空");
 		}
 		try (Connection con = dataSource.getConnection();
 			 Statement statement = con.createStatement()) {
 			executeBatchSql(sqls, statement);
-		} catch (SQLException e) {
-			throw new RuntimeException("批量执行sql语句报错", e);
 		}
 	}
 
@@ -89,42 +87,16 @@ public class DataBaseUtil {
 	 * @param sqls       sql内容
 	 * @param dataSource 数据源
 	 */
-	public static void batchExecuteSqlWithTransaction(List<String> sqls, DataSource dataSource) {
+	public static void batchExecuteSqlWithTransaction(List<String> sqls, DataSource dataSource)
+			throws SQLException {
 		if (null == dataSource) {
 			throw new RuntimeException("批量执行sql语句时，数据源为空");
 		}
-		Connection con = null;
-		Statement statement = null;
-		try {
-			con = dataSource.getConnection();
+		try(Connection con = dataSource.getConnection();
+				Statement statement = con.createStatement()) {
 			con.setAutoCommit(false);
-			statement = con.createStatement();
 			executeBatchSql(sqls, statement);
 			con.commit();
-		} catch (SQLException e) {
-			if (null != con) {
-				try {
-					con.rollback();
-				} catch (SQLException ex) {
-					throw new RuntimeException("批量执行sql语句时，事务回滚异常");
-				}
-			}
-		} finally {
-			if (null != statement) {
-				try {
-					statement.close();
-				} catch (SQLException ex) {
-					throw new RuntimeException("批量执行sql语句时，关闭statement报错");
-				}
-			}
-
-			if (null != con) {
-				try {
-					con.close();
-				} catch (SQLException ex) {
-					throw new RuntimeException("批量执行sql语句时，关闭数据库连接报错");
-				}
-			}
 		}
 	}
 

@@ -10,7 +10,7 @@ import org.bugapi.bugset.base.exception.enums.ExceptionTypeEnum;
  * @author gust
  * @since 0.0.1
  */
-public class InvokeException extends BaseException {
+public class InvokeException extends BugSetRuntimeException {
 
   /**
    * 调用参数

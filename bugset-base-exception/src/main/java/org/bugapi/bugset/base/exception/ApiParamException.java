@@ -9,7 +9,7 @@ import org.bugapi.bugset.base.exception.enums.ApiParamExceptionEnum;
  * @author gust
  * @since 0.0.1
  */
-public class ApiParamException extends BaseException {
+public class ApiParamException extends BugSetRuntimeException {
 
   public ApiParamException(String message) {
     super(ApiParamExceptionEnum.PARAM_ERROR, message);

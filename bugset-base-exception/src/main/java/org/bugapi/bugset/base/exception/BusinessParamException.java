@@ -9,7 +9,7 @@ import org.bugapi.bugset.base.exception.enums.BusinessExceptionEnum;
  * @author gust
  * @since 0.0.1
  */
-public class BusinessParamException extends BaseException {
+public class BusinessParamException extends BugSetRuntimeException {
 
   public BusinessParamException(String message) {
     super(BusinessExceptionEnum.BUSINESS_ERROR, message);
