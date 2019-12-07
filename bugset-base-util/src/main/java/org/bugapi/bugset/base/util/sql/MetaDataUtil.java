@@ -1,10 +1,11 @@
 package org.bugapi.bugset.base.util.sql;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.bugapi.bugset.base.constant.DatabaseEnum;
 
 /**
  * 数据库元数据的操作工具类
@@ -12,7 +13,31 @@ import java.sql.SQLException;
  * @author zhangxw
  * @since 0.0.1
  */
-public class MetaDataUtil {
+public final class MetaDataUtil {
+
+	/**
+	 * 获取数据库类型方法
+	 * @param dataSource 数据源
+	 */
+	public static DatabaseEnum getDatabaseType(DataSource dataSource) throws SQLException {
+		if (dataSource == null) {
+			return DatabaseEnum.UNKNOWN;
+		}
+		try (Connection connection = dataSource.getConnection()) {
+			DatabaseMetaData metaData = connection.getMetaData();
+			String dataBaseType = metaData.getDatabaseProductName();
+			switch (dataBaseType) {
+				case "MySQL":
+					return DatabaseEnum.MYSQL;
+				case "Oracle":
+					return DatabaseEnum.ORACLE;
+				case "Microsoft SQL Server":
+					return DatabaseEnum.SQL_SERVER;
+				default:
+					return DatabaseEnum.UNKNOWN;
+			}
+		}
+	}
 
 	/**
 	 * 根据数据库数据源和表名判断表是否存在
