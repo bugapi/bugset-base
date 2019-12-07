@@ -1,23 +1,24 @@
 package org.bugapi.bugset.base.util.sql;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import org.apache.commons.dbutils.QueryRunner;
-import org.bugapi.bugset.base.constant.SymbolType;
-import org.bugapi.bugset.base.util.string.StringUtil;
-
-import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
+import javax.sql.DataSource;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.bugapi.bugset.base.constant.SymbolType;
+import org.bugapi.bugset.base.util.string.StringUtil;
 
 /**
  * 使用Apache的DbUtils来封装数据库操作的工具类
@@ -123,5 +124,70 @@ public class DataBaseUtil {
 		}
 		QueryRunner queryRunner = new QueryRunner(dataSource);
 		return queryRunner.update(sql, params);
+	}
+
+	/**
+	 * 查询数字（select 1 from dual）
+	 * @param dataSource 数据源
+	 * @param sql sql语句
+	 * @return 数字
+	 * @throws SQLException SQL执行异常
+	 */
+	public static int selectNumber(DataSource dataSource, String sql)
+			throws SQLException {
+		if (null == dataSource) {
+			throw new IllegalArgumentException("数据源为空");
+		}
+		return selectNumber(dataSource, sql, null);
+	}
+
+	/**
+	 * 查询数字（select 1 from dual）
+	 * @param dataSource 数据源
+	 * @param sql sql语句
+	 * @param params 参数
+	 * @return 数字
+	 * @throws SQLException SQL执行异常
+	 */
+	public static int selectNumber(DataSource dataSource, String sql, Object... params)
+			throws SQLException {
+		if (null == dataSource) {
+			throw new IllegalArgumentException("数据源为空");
+		}
+		return select(dataSource, sql, new BeanHandler<>(Integer.class), null);
+	}
+
+	/**
+	 * 查询记录
+	 * @param dataSource 数据源
+	 * @param sql sql语句
+	 * @param resultSetHandler 查询结果转换器
+	 * @return 对象
+	 * @throws SQLException SQL执行异常
+	 */
+	public static <T> T select(DataSource dataSource, String sql, ResultSetHandler<T> resultSetHandler)
+			throws SQLException {
+		if (null == dataSource) {
+			throw new IllegalArgumentException("数据源为空");
+		}
+		return select(dataSource, sql, resultSetHandler, null);
+	}
+
+	/**
+	 * 查询记录
+	 * @param dataSource 数据源
+	 * @param sql sql语句
+	 * @param resultSetHandler 查询结果转换器
+	 * @param params 参数
+	 * @return 对象
+	 * @throws SQLException SQL执行异常
+	 */
+	public static <T> T select(DataSource dataSource, String sql, ResultSetHandler<T> resultSetHandler, Object... params)
+			throws SQLException {
+		if (null == dataSource) {
+			throw new IllegalArgumentException("数据源为空");
+		}
+		QueryRunner queryRunner = new QueryRunner(dataSource);
+		return queryRunner.query(sql, resultSetHandler, params);
 	}
 }

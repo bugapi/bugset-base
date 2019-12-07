@@ -8,6 +8,10 @@ package org.bugapi.bugset.base.exception;
  */
 public class BugSetException extends Exception {
 
+  public BugSetException(String message) {
+    super(message);
+  }
+
   public BugSetException(String message, Throwable cause) {
     super(message, cause);
   }
