@@ -91,7 +91,7 @@ public class UserAgentUtil {
 	 * @param request 请求
 	 * @return boolean 【true：小于Ie8】
 	 */
-	public static boolean isLteIE8(HttpServletRequest request) {
+	public static boolean isLteIe8(HttpServletRequest request) {
 		Browser browser = getBrowser(request);
 		return Browser.IE5.equals(browser) || Browser.IE6.equals(browser)
 				|| Browser.IE7.equals(browser) || Browser.IE8.equals(browser);
