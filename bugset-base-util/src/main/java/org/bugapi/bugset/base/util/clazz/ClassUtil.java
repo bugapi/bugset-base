@@ -33,7 +33,7 @@ public class ClassUtil {
 
 	/**
 	 * 获取类型类的直接父类的泛型的类型类
-	 * 例如: List<String>   获取出的类型为 [String.class]
+	 * 例如: List<String>   获取到的类型为 [String.class]
 	 * 说明:
 	 * 需要获取泛型的,必须通过继承等方式重新构建一个新类,传递泛型的类型
 	 *

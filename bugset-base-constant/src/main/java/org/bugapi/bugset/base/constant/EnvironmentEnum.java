@@ -8,29 +8,33 @@ package org.bugapi.bugset.base.constant;
  */
 public enum EnvironmentEnum {
 
-	/**
-	 * 开发环境
-	 */
-	DEV("dev"),
-	/**
-	 * 生产环境
-	 */
-	PRO("pro"),
-	/**
-	 * 测试环境
-	 */
-	TEST("test");
+    /**
+     * 开发环境
+     */
+    DEV("dev"),
+    /**
+     * 测试环境
+     */
+    TEST("test"),
+    /**
+     * 线上预发环境
+     */
+    PRE("pre"),
+    /**
+     * 生产环境
+     */
+    PRO("pro");
 
-	/**
-	 * 类型
-	 */
-	private String type;
+    /**
+     * 类型
+     */
+    private String type;
 
-	EnvironmentEnum(String type) {
-		this.type = type;
-	}
+    EnvironmentEnum(String type) {
+        this.type = type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 }
