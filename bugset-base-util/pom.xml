@@ -45,6 +45,12 @@
             <artifactId>UserAgentUtils</artifactId>
         </dependency>
 
+        <!-- 阿里的excel操作工具包 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+
         <!-- 阿里的JSON解析器和生成器 -->
         <dependency>
             <groupId>com.alibaba</groupId>
