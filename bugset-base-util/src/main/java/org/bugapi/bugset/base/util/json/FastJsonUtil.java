@@ -70,7 +70,7 @@ public class FastJsonUtil {
 	 * @param obj 对象
 	 * @return String json后的字符串
 	 */
-	public static String toJsonStr(Object obj) {
+	public static String toJson(Object obj) {
 		return JSONObject.toJSONString(obj, serializerfeatures);
 		//return JSONObject.toJSONString(obj);
 	}
@@ -81,7 +81,7 @@ public class FastJsonUtil {
 	 * @param objStr 对象字符串
 	 * @return Object object对象
 	 */
-	public static Object parseObject(String objStr) {
+	public static Object toObject(String objStr) {
 		return JSONObject.parseObject(objStr);
 	}
 
@@ -92,7 +92,7 @@ public class FastJsonUtil {
 	 * @param clazz  类型的Class
 	 * @return T 返回的实体类
 	 */
-	public static <T> T parseObject(String objStr, Class<T> clazz) {
+	public static <T> T toObject(String objStr, Class<T> clazz) {
 		return JSONObject.parseObject(objStr, clazz, features);
 	}
 
@@ -103,7 +103,7 @@ public class FastJsonUtil {
 	 * @param clazz 类型的Class
 	 * @return T 返回的实体类
 	 */
-	public static <T> T parseObject(byte[] bytes, Class<T> clazz) {
+	public static <T> T toObject(byte[] bytes, Class<T> clazz) {
 		return JSONObject.parseObject(bytes, clazz);
 	}
 
@@ -113,7 +113,7 @@ public class FastJsonUtil {
 	 * @param objStr 对象字符串
 	 * @return JSONObject JSONObject对象
 	 */
-	public static JSONObject parseJsonObject(String objStr) {
+	public static JSONObject toJsonObject(String objStr) {
 		return JSONObject.parseObject(objStr);
 	}
 
@@ -123,7 +123,7 @@ public class FastJsonUtil {
 	 * @param objStr 对象字符串
 	 * @return JSONArray JSONArray对象
 	 */
-	public static JSONArray parseJsonArray(String objStr) {
+	public static JSONArray toJsonArray(String objStr) {
 		return JSONObject.parseArray(objStr);
 	}
 
@@ -134,7 +134,7 @@ public class FastJsonUtil {
 	 * @param clazz  类型的Class
 	 * @return List<T> 返回的实体类集合
 	 */
-	public static <T> List<T> parseJsonArray(String objStr, Class<T> clazz) {
+	public static <T> List<T> toJsonArray(String objStr, Class<T> clazz) {
 		return JSONObject.parseArray(objStr, clazz);
 	}
 
@@ -145,7 +145,7 @@ public class FastJsonUtil {
 	 * @param type   类型的Class
 	 * @return T T对象
 	 */
-	public static <T> T parseObject(String objStr, TypeReference<T> type) {
+	public static <T> T toObject(String objStr, TypeReference<T> type) {
 		return JSONObject.parseObject(objStr, type);
 	}
 }
